@@ -14,7 +14,7 @@
 ---------
 
 ###About Daily
-  Daily is the first Android application I have ever made.It was used more for studying Android develop.Now I put it on GitHub for download and communication(url will come after final release)
+  Daily is the first Android application I have ever made.It was used more for studying Android develop.Now I put this project on GitHub for download and communication(url will come after final release)
 
 ###Basic Information
   minSDKVersion:Android 6.0(API 23)
