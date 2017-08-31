@@ -25,7 +25,7 @@ Basic Information<br>
 &ensp;&ensp;minSDKVersion:Android 6.0(API 23)<br>
 &ensp;&ensp;compileSDKVersion:Android 7.1(API 25)
 
-Featurer<br>
+Features<br>
 ---
 &ensp;&ensp;v1:Reminder<br>
 &ensp;&ensp;P.S.the v1 release is building and the project cannot do this now.AND the APP do not support English now(Chinese Only).
