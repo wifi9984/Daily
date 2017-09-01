@@ -1,5 +1,8 @@
 package com.wyf.daily;
 
+import com.wyf.daily.EventsDBHelper;
+import com.wyf.daily.Event;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +25,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
     private TextView tv_pick_time_end;
     private TextView tv_select_pattern;
     private EditText edt_event;
+    private EventsDBHelper mHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +47,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         tv_select_pattern.setText("上一件事结束后");
         findViewById(R.id.btn_confirm_add).setOnClickListener(this);
         findViewById(R.id.btn_cancel_add).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mHelper = EventsDBHelper.getInstance(this,1);
+        mHelper.openReadLink();
     }
 
     @Override
@@ -144,13 +155,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         Event event = new Event(edt_event.getText().toString(),tv_pick_date.getText().toString(),
                 tv_pick_time_start.getText().toString(),tv_pick_time_end.getText().toString(),
                 pattern(tv_select_pattern.getText().toString()));
-        EventsDao dao = new EventsDao(this);
-        dao.insert(event);
+        mHelper.insert(event);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        mHelper.closeLink();
     }
 
     @Override

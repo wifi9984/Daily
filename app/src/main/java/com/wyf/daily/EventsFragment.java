@@ -1,15 +1,14 @@
 package com.wyf.daily;
 
+import com.wyf.daily.EventsDBHelper;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +30,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     private TextView tv_title;
     private TextView tv_event;
     private TextView tv_inform;
+    private EventsDBHelper mHelper;
     protected View mView;
     protected Context mContext;
     private RecyclerView mRecyclerView;
@@ -52,8 +52,9 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         LinearLayoutManager manager = new LinearLayoutManager(this.getActivity());
         manager.setOrientation(LinearLayout.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
-        EventsDao dao = new EventsDao(this.getActivity());
-        ArrayList<Event> AllEvents = dao.AllEvents(this.getActivity());
+        mHelper = EventsDBHelper.getInstance(this.getActivity(),1);
+        mHelper.openWriteLink();
+        ArrayList<Event> AllEvents = mHelper.AllEvents(this.getActivity());
         EventsAdapter adapter = new EventsAdapter(this.getActivity(),AllEvents);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -64,7 +65,12 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onReadDB();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mHelper.closeLink();
     }
 
     public void onClick(View v){
@@ -74,12 +80,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
             onStop();
         }
 
-    }
-
-    public void onReadDB(){
-        final EventsDBHelper dbHelper = new EventsDBHelper(this.getActivity());
-        Cursor c = dbHelper.query();
-        String[] from = {"Event","TimeS","TimeE"};
     }
 
     private Handler mHandler = new Handler();
