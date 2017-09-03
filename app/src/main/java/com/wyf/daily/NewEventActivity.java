@@ -53,7 +53,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
     protected void onStart() {
         super.onStart();
         mHelper = EventsDBHelper.getInstance(this,1);
-        mHelper.openReadLink();
+        mHelper.openWriteLink();
     }
 
     @Override

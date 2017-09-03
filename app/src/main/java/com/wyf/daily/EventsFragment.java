@@ -1,6 +1,5 @@
 package com.wyf.daily;
 
-import com.wyf.daily.EventsDBHelper;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +52,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         manager.setOrientation(LinearLayout.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
         mHelper = EventsDBHelper.getInstance(this.getActivity(),1);
-        mHelper.openWriteLink();
+        mHelper.openReadLink();
         ArrayList<Event> AllEvents = mHelper.AllEvents(this.getActivity());
         EventsAdapter adapter = new EventsAdapter(this.getActivity(),AllEvents);
         mRecyclerView.setAdapter(adapter);
