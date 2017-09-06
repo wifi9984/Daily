@@ -4,13 +4,16 @@ import com.wyf.daily.EventsDBHelper;
 import com.wyf.daily.Event;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -162,6 +165,17 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
     protected void onStop() {
         super.onStop();
         mHelper.closeLink();
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            if(imm.isActive()){
+                imm.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(),0);
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 
     @Override

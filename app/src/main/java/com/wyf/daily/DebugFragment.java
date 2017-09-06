@@ -53,7 +53,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
                 tv_log.setText("查找失败");
                 return;
             }
-            ArrayList<Event> allEvents = mHelper.AllEvents(this.getActivity());
+            ArrayList<Event> allEvents = mHelper.AllEvents(mHelper.getReadableDatabase());
             String desc = String.format(Locale.getDefault(),"数据库查询到%d条记录，详情如下：", allEvents.size());
             for (int i=0; i<allEvents.size(); i++) {
                 Event event = allEvents.get(i);

@@ -119,10 +119,10 @@ public class EventsDBHelper extends SQLiteOpenHelper{
 //
 //    }
 
-    public ArrayList<Event> AllEvents(Context context){
+    public ArrayList<Event> AllEvents(SQLiteDatabase db){
         String sql = "select * from Events";
-        EventsDBHelper helper = new EventsDBHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
+//        EventsDBHelper helper = new EventsDBHelper(context);
+//        SQLiteDatabase db = helper.getWritableDatabase();
         ArrayList<Event> AllEvents = new ArrayList<Event>();
         Event event = null;
         Cursor cursor = db.rawQuery(sql,null);

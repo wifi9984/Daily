@@ -58,6 +58,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         RecyclerView.ViewHolder holder = null;
         v = mInflater.inflate(R.layout.single_event_list,parent,false);
         holder = new ItemHolder(v);
+        v.setOnClickListener(this);
+        v.setOnLongClickListener(this);
         return holder;
     }
 

@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
                 eventsFragment = new EventsFragment();
             }
             isFragment = eventsFragment;
-            ft.replace(R.id.fragment_main,eventsFragment).commit();
+            ft.replace(R.id.frame_main,eventsFragment).commit();
         }
     }
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             if(!to.isAdded()){
-                ft.hide(from).add(R.id.fragment_main,to).commit();
+                ft.hide(from).add(R.id.frame_main,to).commit();
             }else {
                 ft.hide(from).show(to).commit();
             }
