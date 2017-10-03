@@ -30,25 +30,26 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     protected View mView;
     protected Context mContext;
     private RecyclerView mRecyclerView;
+    private EventsAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
-        mHelper = EventsDBHelper.getInstance(mContext,2);
+        mHelper = EventsDBHelper.getInstance(mContext,1);
         mView = inflater.inflate(R.layout.events_fragment,container,false);
-        fab_add = (FloatingActionButton)mView.findViewById(R.id.fab_add);
-        srl_main = (SwipeRefreshLayout)mView.findViewById(R.id.srl_main);
+        fab_add = mView.findViewById(R.id.fab_add);
+        srl_main = mView.findViewById(R.id.srl_main);
         fab_add.setOnClickListener(this);
         srl_main.setOnRefreshListener(this);
         srl_main.setColorSchemeResources(R.color.indigo400,R.color.colorPrimaryDark);
-        mRecyclerView = (RecyclerView)mView.findViewById(R.id.rv_events);
-        LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
+        mRecyclerView = mView.findViewById(R.id.rv_events);
+        LinearLayoutManager manager = new LinearLayoutManager(this.getActivity());
         manager.setOrientation(LinearLayout.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
         ArrayList<Event> AllEvents = mHelper.AllEvents(mHelper.getReadableDatabase());
-        EventsAdapter adapter = new EventsAdapter(this.getActivity(),AllEvents);
-        mRecyclerView.setAdapter(adapter);
+        mAdapter = new EventsAdapter(this.getActivity(),AllEvents);
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this.getActivity(),DividerItemDecoration.HORIZONTAL));
         return mView;
@@ -72,7 +73,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
 
     public void onClick(View v){
         if(v.getId() == R.id.fab_add){
-            Intent intent = new Intent(getContext(),NewEventActivity.class);
+            Intent intent = new Intent(getActivity(),NewEventActivity.class);
             startActivity(intent);
             onStop();
         }
@@ -82,6 +83,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     private Handler mHandler = new Handler();
     public void onRefresh(){
         mHandler.postDelayed(mRefresh,1500);
+        mAdapter.onDataUpdate(mHelper.AllEvents(mHelper.getReadableDatabase()));
     }
     private Runnable mRefresh = new Runnable() {
         @Override
