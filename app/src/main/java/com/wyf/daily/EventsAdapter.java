@@ -45,7 +45,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         ItemHolder itemHolder = holder;
         itemHolder.tv_time.setText(AllEvents.get(position).getTime_s());
         itemHolder.tv_event.setText(AllEvents.get(position).getEvent());
-        itemHolder.tv_inform.setText(AllEvents.get(position).getPattern());
+        itemHolder.tv_inform.setText(AllEvents.get(position).getPattern().toString());
         itemHolder.card_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +62,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return AllEvents.size();
     }
 
     @Override
