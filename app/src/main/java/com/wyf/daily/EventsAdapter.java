@@ -7,16 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- * Created by admin on 2017/8/26.
+ * Adapter用于呈现数据库存储的事件详情
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder>
-        implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
+        implements View.OnClickListener,View.OnLongClickListener{
 
     private Context mContext;
     private LayoutInflater mInflater;
@@ -37,6 +38,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = mInflater.inflate(R.layout.single_event_list,parent,false);
         ItemHolder holder = new ItemHolder(v);
+        v.setOnClickListener(this);
+        v.setOnLongClickListener(this);
         return holder;
     }
 
@@ -45,19 +48,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         ItemHolder itemHolder = holder;
         itemHolder.tv_time.setText(AllEvents.get(position).getTime_s());
         itemHolder.tv_event.setText(AllEvents.get(position).getEvent());
-        itemHolder.tv_inform.setText(AllEvents.get(position).getPattern().toString());
-        itemHolder.card_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        itemHolder.card_item.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return false;
-            }
-        });
+        itemHolder.tv_inform.setText(setPattern(position));
+        itemHolder.card_item.setTag(position);
     }
 
     @Override
@@ -71,12 +63,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+    public void onClick(View view) {
+        if (mOnItemClickListener != null){
+            mOnItemClickListener.onItemClick(view,(int)view.getTag());
+        }
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+    public boolean onLongClick(View view) {
+        if (mOnItemLongClickListener != null){
+            mOnItemLongClickListener.onItemLongClick(view,(int)view.getTag());
+        }
         return false;
     }
 
@@ -93,5 +90,49 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
             tv_event = v.findViewById(R.id.tv_home_read_event);
             tv_inform = v.findViewById(R.id.tv_home_read_inform_time);
         }
+    }
+
+    //Pattern的显示效果实现
+    public String setPattern(int position){
+        String pattern = "" ;
+        Integer code = AllEvents.get(position).getPattern();
+        switch (code){
+            case 1:
+                pattern = "将在上一事项结束后提醒你";
+                break;
+            case 2:
+                pattern = "将在开始前半小时提醒你";
+                break;
+            case 3:
+                pattern = "将在开始前一小时提醒你";
+                break;
+            case 4:
+                pattern = "将在开始前3天提醒你";
+                break;
+            case 5:
+                pattern = "使用自定义模式提醒";
+                break;
+        }
+        return pattern;
+    }
+
+    //自建OnItemClickListener
+    private OnItemClickListener mOnItemClickListener = null;
+    public static interface OnItemClickListener{
+        void onItemClick(View v,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mOnItemClickListener = listener;
+    }
+
+    //自建OnItemLongClickListener
+    private OnItemLongClickListener mOnItemLongClickListener = null;
+    public static interface OnItemLongClickListener{
+        void onItemLongClick(View v,int position);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener listner){
+        this.mOnItemLongClickListener = listner;
     }
 }

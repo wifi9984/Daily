@@ -21,6 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/*
+ * 按加号按钮添加新事件的Activity
+ */
+
 public class NewEventActivity extends Activity implements View.OnClickListener,
         mDatePickerDialog.OnDateSetListener,mTimePickerDialog.OnTimeSetListener{
     private TextView tv_pick_date;
@@ -146,6 +150,12 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 break;
             case ("一小时前"):
                 pattern = 3;
+                break;
+            case ("三天前"):
+                pattern = 4;
+                break;
+            case ("自定义"):
+                pattern = 5;
                 break;
             default:
                 pattern = 1;

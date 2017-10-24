@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity
     private EventsFragment eventsFragment;
     private DebugFragment debugFragment;
     private android.app.Fragment isFragment;//showing fragment
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

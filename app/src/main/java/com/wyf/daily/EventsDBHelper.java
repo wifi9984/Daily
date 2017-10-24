@@ -137,6 +137,7 @@ public class EventsDBHelper extends SQLiteOpenHelper{
         return AllEvents;
     }
 
+    //delete方法未完成
     public int delete(String condition){
         int count = mDB.delete(table_name,condition,null);
         return count;

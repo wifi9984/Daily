@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 
+/*
+ * 日期事件格式转化的工具
+ */
+
 public class TimeUtils {
     public static String getNowDate(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年M月d日 - EE");

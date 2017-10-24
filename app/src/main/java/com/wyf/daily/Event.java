@@ -1,7 +1,7 @@
 package com.wyf.daily;
 
 /**
- * Created by admin on 2017/8/5.
+ * Event作为一个类
  */
 
 public class Event {

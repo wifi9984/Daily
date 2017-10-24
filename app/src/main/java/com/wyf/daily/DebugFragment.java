@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * This fragment is used to debug.
+ * DebugFragment用来做APP各种后台的调试
  */
 
 public class DebugFragment extends android.app.Fragment implements View.OnClickListener {

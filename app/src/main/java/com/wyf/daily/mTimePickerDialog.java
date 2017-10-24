@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import android.widget.TimePicker;
 
 /**
- * Created by admin on 2017/8/11.
+ * 自定义的TimePickerDialog
  */
 
 public class mTimePickerDialog implements View.OnClickListener,TimePicker.OnTimeChangedListener {
