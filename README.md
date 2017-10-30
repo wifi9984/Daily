@@ -40,3 +40,9 @@ Features<br>
   <img src="https://raw.githubusercontent.com/wifi9984/wifi9984.github.io/master/img/Screenshot_2017-10-30-11-21-51-642_com.wyf.daily.png" width="40%" title="NewEventActivity" alt="NewEventActivity"/>
   <img src="https://raw.githubusercontent.com/wifi9984/wifi9984.github.io/master/img/Screenshot_2017-10-30-11-22-00-389_com.wyf.daily.png" width="40%" title="DebugFragment" alt="DebugFragment"/>
 </center>
+---
+开发人员/Developers<br>
+---
+产品/开发：wifi9984
+UI/测试/划水：whunting
+---
