@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder>
-        implements View.OnClickListener,View.OnLongClickListener{
+        implements View.OnClickListener,View.OnLongClickListener,View.OnTouchListener{
 
     private Context mContext;
     private LayoutInflater mInflater;
@@ -73,6 +74,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
     public boolean onLongClick(View view) {
         if (mOnItemLongClickListener != null){
             mOnItemLongClickListener.onItemLongClick(view,(int)view.getTag());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (mOnTouchListener != null){
+            mOnTouchListener.onTouch(view,motionEvent);
         }
         return false;
     }
@@ -135,4 +144,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
     public void setOnItemLongClickListener(OnItemLongClickListener listner){
         this.mOnItemLongClickListener = listner;
     }
+
+    private View.OnTouchListener mOnTouchListener = null;
+    public static interface OnTouch{
+        void onTouch(View v,MotionEvent motionEvent);
+    }
+
+    public void setOnTouchListener(View.OnTouchListener listener){
+        this.mOnTouchListener = listener;
+    }
+
 }
