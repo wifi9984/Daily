@@ -44,5 +44,5 @@ Features<br>
 ---
 开发人员 / Developers<br>
 ---
-  *产品/开发：`wifi9984`<br>
-  *UI/测试/划水：`whunting`<br>
+  * 产品/开发：`wifi9984`<br>
+  * UI/测试/划水：`whunting`<br>
