@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity
 
     private EventsFragment eventsFragment;
     private DebugFragment debugFragment;
+    private SettingsFragment settingsFragment;
+    private NotebookFragment notebookFragment;
     private android.app.Fragment isFragment;//showing fragment
 
     @Override
@@ -96,9 +98,15 @@ public class MainActivity extends AppCompatActivity
             }
             switchContent(isFragment,debugFragment);
         } else if (id == R.id.nav_notes) {
-
+            if(notebookFragment == null){
+                notebookFragment = new NotebookFragment();
+            }
+            switchContent(isFragment,notebookFragment);
         } else if (id == R.id.nav_settings) {
-
+            if(settingsFragment == null){
+                settingsFragment = new SettingsFragment();
+            }
+            switchContent(isFragment,settingsFragment);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
