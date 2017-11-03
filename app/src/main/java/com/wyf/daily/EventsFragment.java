@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * EventsFragment来呈现“所有事项”界面
  */
 
-public class EventsFragment extends android.app.Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener,View.OnTouchListener{
+public class EventsFragment extends android.app.Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
 
     private FloatingActionButton fab_add;
     private SwipeRefreshLayout srl_main;
@@ -41,8 +41,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     private EventsAdapter mAdapter;
     private PopupWindow popDeleteItem;
     private Button btn_delete_item;
-    private int[] rawxy;
-    private int getPosition;
+    public int x,y;
 
     @Nullable
     @Override
@@ -50,7 +49,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mContext = getActivity();
         mHelper = EventsDBHelper.getInstance(mContext,1);
         mView = inflater.inflate(R.layout.events_fragment,container,false);
-        mView.setOnTouchListener(this);
         fab_add = mView.findViewById(R.id.fab_add);
         srl_main = mView.findViewById(R.id.srl_main);
         fab_add.setOnClickListener(this);
@@ -63,7 +61,8 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         popDeleteItem.setBackgroundDrawable(null);
         popView = inflater.inflate(R.layout.pop_delete_item,null);
         popDeleteItem.setContentView(popView);
-        rawxy = new int[2];
+        popDeleteItem.setOutsideTouchable(false);
+        popDeleteItem.setFocusable(true);
         btn_delete_item = popView.findViewById(R.id.btn_delete_pop);
         btn_delete_item.setOnClickListener(this);
         mRecyclerView = mView.findViewById(R.id.rv_events);
@@ -80,11 +79,17 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mAdapter.setOnItemLongClickListener(new EventsAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int position) {
-                //PopupWindow响应代码
-                popDeleteItem.showAtLocation(mView,Gravity.TOP|Gravity.START,rawxy[0],rawxy[1]);
-                popDeleteItem.setOutsideTouchable(false);
-                popDeleteItem.setFocusable(true);
-                getPosition = position;
+                int xoff = x - popDeleteItem.getWidth() / 2;
+                int yoff = 0 - (v.getHeight() - y) - popDeleteItem.getHeight();
+                popDeleteItem.showAsDropDown(v, xoff, yoff);
+            }
+        });
+        mAdapter.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                x = (int) motionEvent.getX();
+                y = (int) motionEvent.getY();
+                return false;
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -133,14 +138,4 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
             srl_main.setRefreshing(false);
         }
     };
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-            rawxy[0] = (int) motionEvent.getRawX();
-            rawxy[1] = (int) motionEvent.getRawY();
-            Toast.makeText(this.getActivity(),"hei",Toast.LENGTH_SHORT).show();
-        }
-        return true;
-    }
 }
