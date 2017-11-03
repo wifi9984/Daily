@@ -2,7 +2,7 @@ Daily
 ====
 关于Daily<br>
 ---
-&emsp;&emsp;Daily是我做的第一个Android APP，主要是用来学习Android开发的。我把它放到GitHub上，有兴趣的小伙伴可以下载安装到手机上（链接以后会有的）
+&emsp;&emsp;Daily是我做的第一个Android APP，主要是用来学习Android开发的。我把它放到GitHub上，有兴趣的小伙伴可以下载安装到手机上
 
 基本信息<br>
 ---
@@ -18,7 +18,7 @@ Daily
 
 About Daily<br>
 ---
-&ensp;&ensp;Daily is the first Android application I have ever made.It was used more for studying Android develop.Now I put this project on GitHub for download and communication(url will come after final release)
+&ensp;&ensp;Daily is the first Android application I have ever made.It was used more for studying Android develop.Now I put this project on GitHub for download and communication.
 
 Basic Information<br>
 ---
@@ -29,3 +29,20 @@ Features<br>
 ---
 &ensp;&ensp;v1:Reminder<br>
 &ensp;&ensp;P.S.the v1 release is building and the project cannot do this now.AND the APP do not support English now(Chinese Only).
+
+---
+
+预览图 / Preview images
+---
+<center>
+  <img src="https://raw.githubusercontent.com/wifi9984/wifi9984.github.io/master/img/Screenshot_2017-10-30-11-21-46-492_com.wyf.daily.png" width="40%" title="EventsFragment" alt="EventsFragment"/>
+  <img src="https://raw.githubusercontent.com/wifi9984/wifi9984.github.io/master/img/Screenshot_2017-10-30-11-21-56-522_com.wyf.daily.png" width="40%" title="NavigationDrawer" alt="NavigationDrawer"/>
+  <img src="https://raw.githubusercontent.com/wifi9984/wifi9984.github.io/master/img/Screenshot_2017-10-30-11-21-51-642_com.wyf.daily.png" width="40%" title="NewEventActivity" alt="NewEventActivity"/>
+  <img src="https://raw.githubusercontent.com/wifi9984/wifi9984.github.io/master/img/Screenshot_2017-10-30-11-22-00-389_com.wyf.daily.png" width="40%" title="DebugFragment" alt="DebugFragment"/>
+</center>
+
+---
+开发人员 / Developers<br>
+---
+  * 产品/开发：`wifi9984`<br>
+  * UI/测试/划水：`whunting`<br>
