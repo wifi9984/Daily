@@ -10,6 +10,12 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * DBHelper是对数据库的连接操作
+ * 里面一堆方法我还没写好
+ * 书上第4章有demo
+ */
+
 public class EventsDBHelper extends SQLiteOpenHelper{
     private static final int db_version = 1;
     private static final String table_name = "Events";
