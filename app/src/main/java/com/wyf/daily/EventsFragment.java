@@ -65,6 +65,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         popDeleteItem.setFocusable(true);
         btn_delete_item = popView.findViewById(R.id.btn_delete_pop);
         btn_delete_item.setOnClickListener(this);
+        //RecyclerView初始化
         mRecyclerView = mView.findViewById(R.id.rv_events);
         LinearLayoutManager manager = new LinearLayoutManager(this.getActivity());
         manager.setOrientation(LinearLayout.VERTICAL);
