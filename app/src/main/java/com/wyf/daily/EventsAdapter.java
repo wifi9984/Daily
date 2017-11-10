@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 /**
  * Adapter用于呈现数据库存储的事件详情
+ * 从数据库拉取数据，写到每一个Event对象里面，再通过对象读取数据加载到RecyclerView中
+ * 这一块我堵了好久，RecyclerView作为一个高级控件，需要多看文档= =
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder>

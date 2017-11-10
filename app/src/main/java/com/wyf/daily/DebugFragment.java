@@ -49,6 +49,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_debug_read){
+            //读取数据库数据，代码我也是抄来的，改好了2333
             if (mHelper == null){
                 tv_log.setText("查找失败");
                 return;
