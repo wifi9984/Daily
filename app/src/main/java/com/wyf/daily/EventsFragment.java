@@ -66,9 +66,14 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         btn_delete_item = popView.findViewById(R.id.btn_delete_pop);
         btn_delete_item.setOnClickListener(this);
         mRecyclerView = mView.findViewById(R.id.rv_events);
-        LinearLayoutManager manager = new LinearLayoutManager(this.getActivity());
-        manager.setOrientation(LinearLayout.VERTICAL);
-        mRecyclerView.setLayoutManager(manager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false){
+            //重写LinearLayoutManager，修复RecyclerView嵌套在ScrollView中导致的滚动冲突，解决卡顿
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        mRecyclerView.setLayoutManager(linearLayoutManager);
         ArrayList<Event> AllEvents = mHelper.AllEvents(mHelper.getReadableDatabase());
         mAdapter = new EventsAdapter(this.getActivity(),AllEvents);
         mAdapter.setOnItemClickListener(new EventsAdapter.OnItemClickListener() {
@@ -79,17 +84,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mAdapter.setOnItemLongClickListener(new EventsAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int position) {
-                int xoff = x - popDeleteItem.getWidth() / 2;
-                int yoff = 0 - (v.getHeight() - y) - popDeleteItem.getHeight();
-                popDeleteItem.showAsDropDown(v, xoff, yoff);
-            }
-        });
-        mAdapter.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                x = (int) motionEvent.getX();
-                y = (int) motionEvent.getY();
-                return false;
+                popDeleteItem.showAsDropDown(v);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
