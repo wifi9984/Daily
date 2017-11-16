@@ -14,9 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Adapter用于呈现数据库存储的事件详情
- * 从数据库拉取数据，写到每一个Event对象里面，再通过对象读取数据加载到RecyclerView中
- * 这一块我堵了好久，RecyclerView作为一个高级控件，需要多看文档= =
+ *  Adapter用于呈现数据库存储的事件详情
+ *  从数据库拉取数据，写到每一个Event对象里面，再通过对象读取数据加载到RecyclerView中
+ *  这一块我堵了好久，RecyclerView作为一个高级控件，需要多看文档= =
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder>
@@ -103,7 +103,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         }
     }
 
-    //Pattern的显示效果实现
+    // Pattern的显示效果实现
     public String setPattern(int position){
         String pattern = "" ;
         Integer code = AllEvents.get(position).getPattern();
@@ -127,7 +127,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         return pattern;
     }
 
-    //自建OnItemClickListener
+    // 自建OnItemClickListener
     private OnItemClickListener mOnItemClickListener = null;
     public static interface OnItemClickListener{
         void onItemClick(View v,int position);
@@ -137,7 +137,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         this.mOnItemClickListener = listener;
     }
 
-    //自建OnItemLongClickListener
+    // 自建OnItemLongClickListener
     private OnItemLongClickListener mOnItemLongClickListener = null;
     public static interface OnItemLongClickListener{
         void onItemLongClick(View v,int position);

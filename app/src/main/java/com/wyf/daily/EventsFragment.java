@@ -26,7 +26,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * EventsFragment来呈现“所有事项”界面
+ *  EventsFragment来呈现“所有事项”界面
  */
 
 public class EventsFragment extends android.app.Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
@@ -49,6 +49,27 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mContext = getActivity();
         mHelper = EventsDBHelper.getInstance(mContext,1);
         mView = inflater.inflate(R.layout.events_fragment,container,false);
+        init();
+        return mView;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mHelper.closeLink();
+    }
+
+    void init(){
         fab_add = mView.findViewById(R.id.fab_add);
         srl_main = mView.findViewById(R.id.srl_main);
         fab_add.setOnClickListener(this);
@@ -59,16 +80,16 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         popDeleteItem.setWidth(wm.getDefaultDisplay().getWidth()/8);
         popDeleteItem.setHeight(wm.getDefaultDisplay().getHeight()/20);
         popDeleteItem.setBackgroundDrawable(null);
-        popView = inflater.inflate(R.layout.pop_delete_item,null);
+        popView = View.inflate(getActivity(),R.layout.pop_delete_item,null);
         popDeleteItem.setContentView(popView);
         popDeleteItem.setOutsideTouchable(false);
         popDeleteItem.setFocusable(true);
         btn_delete_item = popView.findViewById(R.id.btn_delete_pop);
         btn_delete_item.setOnClickListener(this);
-        //RecyclerView初始化
+        // RecyclerView初始化
         mRecyclerView = mView.findViewById(R.id.rv_events);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false){
-            //重写LinearLayoutManager，修复RecyclerView嵌套在ScrollView中导致的滚动冲突，解决卡顿
+            // 重写LinearLayoutManager，修复RecyclerView嵌套在ScrollView中导致的滚动冲突，解决卡顿
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -91,23 +112,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this.getActivity(),DividerItemDecoration.HORIZONTAL));
-        return mView;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mHelper.closeLink();
     }
 
     public void onClick(View v){
@@ -116,8 +120,8 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
             startActivity(intent);
             onStop();
         }else if(v.getId() == R.id.btn_delete_pop){
-            //执行SQLite的delete方法
-            //getPosition存储选中的item的position
+            // 执行SQLite的delete方法
+            // getPosition存储选中的item的position
             popDeleteItem.dismiss();
         }
 

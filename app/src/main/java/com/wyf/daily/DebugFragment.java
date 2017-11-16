@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * DebugFragment用来做APP各种后台的调试
+ *  DebugFragment用来做APP各种后台的调试
  */
 
 public class DebugFragment extends android.app.Fragment implements View.OnClickListener {
@@ -31,11 +31,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.debug_fragment,container,false);
-        btn_read = (Button)mView.findViewById(R.id.btn_debug_read);
-        btn_clean = (Button)mView.findViewById(R.id.btn_debug_clean);
-        btn_read.setOnClickListener(this);
-        btn_clean.setOnClickListener(this);
-        tv_log = (TextView)mView.findViewById(R.id.tv_debug_log);
+        init();
         return mView;
     }
 
@@ -46,10 +42,18 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
         mHelper.openReadLink();
     }
 
+    void init(){
+        btn_read = (Button)mView.findViewById(R.id.btn_debug_read);
+        btn_clean = (Button)mView.findViewById(R.id.btn_debug_clean);
+        btn_read.setOnClickListener(this);
+        btn_clean.setOnClickListener(this);
+        tv_log = (TextView)mView.findViewById(R.id.tv_debug_log);
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_debug_read){
-            //读取数据库数据，代码我也是抄来的，改好了2333
+            // 读取数据库数据，代码我也是抄来的，改好了2333
             if (mHelper == null){
                 tv_log.setText("查找失败");
                 return;

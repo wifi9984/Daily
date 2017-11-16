@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * DBHelper是对数据库的连接操作
- * 里面一堆方法我还没写好
- * 书上第4章有demo
+ *  DBHelper是对数据库的连接操作
+ *  里面一堆方法我还没写好
+ *  书上第4章有demo
  */
 
 public class EventsDBHelper extends SQLiteOpenHelper{
@@ -91,7 +91,7 @@ public class EventsDBHelper extends SQLiteOpenHelper{
         for(int i = 0;i < eventArray.size();i++){
             Event event = eventArray.get(i);
             ArrayList<Event> tempArray = new ArrayList<Event>();
-            //如果存在同样的事件，则更新
+            // 如果存在同样的事件，则更新
             // ！！！由于事件名允许更改，为避免导致重复，准备重写update方法（以id为思路）。
 //            if(event.getEvent() != null && event.getEvent().length()>0){
 //                String condition = String.format("name='%s'",event.getEvent());
@@ -102,7 +102,7 @@ public class EventsDBHelper extends SQLiteOpenHelper{
 //                    continue;
 //                }
 //            }
-            //单纯添加
+            // 单纯添加
             ContentValues cv = new ContentValues();
             cv.put("Event",event.getEvent());
             cv.put("Date",event.getDate());
@@ -143,7 +143,7 @@ public class EventsDBHelper extends SQLiteOpenHelper{
         return AllEvents;
     }
 
-    //delete方法未完成
+    // delete方法未完成
     public int delete(String condition){
         int count = mDB.delete(table_name,condition,null);
         return count;

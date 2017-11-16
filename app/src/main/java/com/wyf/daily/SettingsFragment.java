@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Settings page.
+ *  Settings page.
  */
 
 public class SettingsFragment extends Fragment {

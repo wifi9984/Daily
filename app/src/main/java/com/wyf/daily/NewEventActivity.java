@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /*
- * 从EventsFragment按加号按钮添加新事件的Activity
+ *  从EventsFragment按加号按钮添加新事件的Activity
  */
 
 public class NewEventActivity extends Activity implements View.OnClickListener,
@@ -39,21 +39,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_event);
-        tv_pick_date = (TextView)findViewById(R.id.tv_pick_date);
-        tv_pick_date.setOnClickListener(this);
-        tv_pick_time_start = (TextView)findViewById(R.id.tv_pick_time_start);
-        tv_pick_time_start.setOnClickListener(this);
-        tv_pick_time_end = (TextView)findViewById(R.id.tv_pick_time_end);
-        tv_pick_time_end.setOnClickListener(this);
-        tv_select_pattern = (TextView)findViewById(R.id.tv_select_pattern);
-        tv_select_pattern.setOnClickListener(this);
-        edt_event = (EditText)findViewById(R.id.edt_event);
-        tv_pick_date.setText(TimeUtils.getNowDate());
-        tv_pick_time_start.setText(TimeUtils.getNowTime());
-        tv_pick_time_end.setText(TimeUtils.getNowTime());
-        tv_select_pattern.setText("上一件事结束后");
-        findViewById(R.id.btn_confirm_add).setOnClickListener(this);
-        findViewById(R.id.btn_cancel_add).setOnClickListener(this);
+        init();
     }
 
     @Override
@@ -67,13 +53,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()){
             case(R.id.btn_confirm_add):
-                //“确认添加”的操作，需要检查是否为空：if .... = null
+                // “确认添加”的操作，需要检查是否为空：if .... = null
                 onSaveEvent();
                 onDismiss();
                 onStop();
                 break;
             case(R.id.btn_cancel_add):
-                //点击取消时需要提醒用户确认一次
+                // 点击取消时需要提醒用户确认一次
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("正在编辑：");
                 builder.setMessage("确认放弃编辑吗？这一事件将不会被保存");
@@ -90,12 +76,12 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                //设置按钮文字颜色，POSITIVE使用默认Accent，不需要重新赋值
+                // 设置按钮文字颜色，POSITIVE使用默认Accent，不需要重新赋值
                 Button button = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 button.setTextColor(getResources().getColor(R.color.grey500));
                 break;
             case(R.id.tv_pick_date):
-                //加载+初始化DatePickerDialog，设定事件日期
+                // 加载+初始化DatePickerDialog，设定事件日期
                 Calendar calendar = Calendar.getInstance();
                 mDatePickerDialog picker_date = new mDatePickerDialog(this);
                 picker_date.setDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),
@@ -103,7 +89,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 picker_date.show();
                 break;
             case(R.id.tv_pick_time_start):
-                //加载+初始化TimePickerDialog，设定开始日期
+                // 加载+初始化TimePickerDialog，设定开始日期
                 Calendar calendar1 = Calendar.getInstance();
                 mTimePickerDialog picker_times = new mTimePickerDialog(this);
                 picker_times.setTime(calendar1.get(Calendar.HOUR_OF_DAY),calendar1.get(Calendar.MINUTE),this);
@@ -111,7 +97,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 tv_pick_time_start.setVisibility(View.INVISIBLE);
                 break;
             case (R.id.tv_pick_time_end):
-                //加载+初始化TimePickerDialog，设定结束日期
+                // 加载+初始化TimePickerDialog，设定结束日期
                 Calendar calendar2 = Calendar.getInstance();
                 mTimePickerDialog picker_timee = new mTimePickerDialog(this);
                 picker_timee.setTime(calendar2.get(Calendar.HOUR_OF_DAY),calendar2.get(Calendar.MINUTE),this);
@@ -119,7 +105,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 tv_pick_time_end.setVisibility(View.INVISIBLE);
                 break;
             case (R.id.tv_select_pattern):
-                //选择提醒模式，有点迷...就是用数字存储提醒的模式
+                // 选择提醒模式，有点迷...就是用数字存储提醒的模式
                 final String[] list_pattern = {"上一件事结束后","半小时前","一小时前","三天前","自定义"};
                 final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle("选择提醒方式：");
@@ -140,14 +126,32 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         }
     }
 
+    void init(){
+        tv_pick_date = (TextView)findViewById(R.id.tv_pick_date);
+        tv_pick_date.setOnClickListener(this);
+        tv_pick_time_start = (TextView)findViewById(R.id.tv_pick_time_start);
+        tv_pick_time_start.setOnClickListener(this);
+        tv_pick_time_end = (TextView)findViewById(R.id.tv_pick_time_end);
+        tv_pick_time_end.setOnClickListener(this);
+        tv_select_pattern = (TextView)findViewById(R.id.tv_select_pattern);
+        tv_select_pattern.setOnClickListener(this);
+        edt_event = (EditText)findViewById(R.id.edt_event);
+        tv_pick_date.setText(TimeUtils.getNowDate());
+        tv_pick_time_start.setText(TimeUtils.getNowTime());
+        tv_pick_time_end.setText(TimeUtils.getNowTime());
+        tv_select_pattern.setText("上一件事结束后");
+        findViewById(R.id.btn_confirm_add).setOnClickListener(this);
+        findViewById(R.id.btn_cancel_add).setOnClickListener(this);
+    }
+
     public void onDismiss(){
-        //看似dismiss，其实是跳转回主界面并进行刷新
+        // 看似dismiss，其实是跳转回主界面并进行刷新
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 
     public int pattern(String str){
-        //把pattern转化为数字
+        // 把pattern转化为数字
         Integer pattern;
         switch (str){
             case ("半小时前"):
@@ -169,7 +173,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         return pattern;
     }
 
-    //保存Event，用到数据库的insert操作
+    // 保存Event，用到数据库的insert操作
     public void onSaveEvent(){
         Event event = new Event(edt_event.getText().toString(),tv_pick_date.getText().toString(),
                 tv_pick_time_start.getText().toString(),tv_pick_time_end.getText().toString(),
@@ -183,7 +187,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         mHelper.closeLink();
     }
 
-    //预想通过按回车键结束事件的输入，目前的方法仍存在问题
+    // 预想通过按回车键结束事件的输入，目前的方法仍存在问题
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //初始化Toolbar
+    // 初始化Toolbar
     public void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("所有事项");
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //初始化Fragment，默认加载EventsFragment
+    // 初始化Fragment，默认加载EventsFragment
     public void initFragment(Bundle savedInstanceState){
         if(savedInstanceState == null){
             FragmentManager fm = getFragmentManager();
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Fragment的切换
+    // Fragment的切换
     public void switchContent(Fragment from,Fragment to){
         if(isFragment != to) {
             isFragment = to;

@@ -10,7 +10,7 @@ import android.widget.DatePicker;
 import java.util.Date;
 
 /**
- * 自定义的DatePickerDialog
+ *  自定义的DatePickerDialog
  */
 
 public class mDatePickerDialog implements View.OnClickListener,DatePicker.OnDateChangedListener {

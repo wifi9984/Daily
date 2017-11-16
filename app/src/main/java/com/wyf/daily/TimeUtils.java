@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Timer;
 
 /*
- * 日期事件格式转化的工具，直接调用就可以，避免重写浪费时间
+ *  日期事件格式转化的工具，直接调用就可以，避免重写浪费时间
  */
 
 public class TimeUtils {
