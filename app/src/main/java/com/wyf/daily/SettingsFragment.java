@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- *  Settings page.
+ * 功能：设置
+ *
+ * @author wifi9984
+ * @date 2017/11/17
  */
 
 public class SettingsFragment extends Fragment {

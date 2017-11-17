@@ -1,27 +1,39 @@
 package com.wyf.daily;
 
 /**
- *  Event作为一个类，有几个属性，通过对应的getXXX方法可以找到对应的数据
+ * Event作为一个类，有几个属性，通过对应的getXXX方法可以找到对应的数据
+ *
+ * @author wifi9984
+ * @date 2017/8/31
  */
 
 public class Event {
     private String event;
     private String date;
-    private String time_s;
-    private String time_e;
+    private String timeStart;
+    private String timeEnd;
     private Integer pattern;
 
-    // 类的空构造方法，不能删= =
+    /**
+     * 类的空构造方法，不能删= =
+     */
     public Event(){
 
     }
 
-    // 重载的构造方法，用来写入参数，在NewEventActivity里面有引用
-    public Event(String event, String date, String time_s, String time_e, Integer pattern) {
+    /**
+     * 重载的构造方法，用来写入参数，在NewEventActivity里面有引用
+     * @param event
+     * @param date
+     * @param timeStart
+     * @param timeEnd
+     * @param pattern
+     */
+    public Event(String event, String date, String timeStart, String timeEnd, Integer pattern) {
         this.event = event;
         this.date = date;
-        this.time_s = time_s;
-        this.time_e = time_e;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
         this.pattern = pattern;
     }
 
@@ -33,12 +45,12 @@ public class Event {
         return date;
     }
 
-    public String getTime_s() {
-        return time_s;
+    public String getTimeStart() {
+        return timeStart;
     }
 
-    public String getTime_e() {
-        return time_e;
+    public String getTimeEnd() {
+        return timeEnd;
     }
 
     public Integer getPattern() {

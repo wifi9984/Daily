@@ -8,27 +8,29 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/*
- *  DBHelper是对数据库的连接操作
- *  里面一堆方法我还没写好
- *  书上第4章有demo
+/**
+ * DBHelper是对数据库的连接操作
+ * 里面一堆方法我还没写好
+ * 书上第4章有demo
+ *
+ * @author wifi9984
+ * @date 2017/9/1
  */
 
 public class EventsDBHelper extends SQLiteOpenHelper{
-    private static final int db_version = 1;
-    private static final String table_name = "Events";
-    private static final String db_name = "events.db";
+    private static final int DB_VERSION = 1;
+    private static final String TABLE_NAME = "Events";
+    private static final String DB_NAME = "events.db";
     private static EventsDBHelper mHelper = null;
     private SQLiteDatabase mDB = null;
 
     private EventsDBHelper(Context context){
-        super(context,db_name,null,db_version);
+        super(context, DB_NAME,null, DB_VERSION);
     }
 
     private EventsDBHelper(Context context,int version){
-        super(context,db_name,null,version);
+        super(context, DB_NAME,null,version);
     }
 
     public static EventsDBHelper getInstance(Context context,int version){
@@ -65,14 +67,14 @@ public class EventsDBHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         //Log
         Log.d("EventsDBHelper","onCreate");
-        String drop_sql = "DROP TABLE IF EXISTS " + table_name + ";";
-        db.execSQL(drop_sql);
-        String create_sql = "CREATE TABLE IF NOT EXISTS " + table_name + "("+" _id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+        String dropSql = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+        db.execSQL(dropSql);
+        String createSql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("+" _id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "Event VARCHAR(40) NOT NULL,Date VARCHAR(20) NOT NULL," +
                 "TimeS VARCHAR(15) NOT NULL,TimeE VARCHAR(15) NOT NULL,Pattern INTEGER NOT NULL"+");";
         //Log
-        Log.d("EventsDBHelper","create_sql:"+create_sql);
-        db.execSQL(create_sql);
+        Log.d("EventsDBHelper","createSql:"+createSql);
+        db.execSQL(createSql);
     }
 
     @Override
@@ -106,10 +108,10 @@ public class EventsDBHelper extends SQLiteOpenHelper{
             ContentValues cv = new ContentValues();
             cv.put("Event",event.getEvent());
             cv.put("Date",event.getDate());
-            cv.put("TimeS",event.getTime_s());
-            cv.put("TimeE",event.getTime_e());
+            cv.put("TimeS",event.getTimeStart());
+            cv.put("TimeE",event.getTimeEnd());
             cv.put("Pattern",event.getPattern());
-            result = mDB.insert(table_name,"",cv);
+            result = mDB.insert(TABLE_NAME,"",cv);
             if(result == -1){
                 return result;
             }
@@ -125,11 +127,11 @@ public class EventsDBHelper extends SQLiteOpenHelper{
 //
 //    }
 
-    public ArrayList<Event> AllEvents(SQLiteDatabase db){
+    public ArrayList<Event> allEvents(SQLiteDatabase db){
         String sql = "select * from Events";
 //        EventsDBHelper helper = new EventsDBHelper(context);
 //        SQLiteDatabase db = helper.getWritableDatabase();
-        ArrayList<Event> AllEvents = new ArrayList<Event>();
+        ArrayList<Event> allEvents = new ArrayList<Event>();
         Event event = null;
         Cursor cursor = db.rawQuery(sql,null);
         while (cursor.moveToNext()){
@@ -138,19 +140,20 @@ public class EventsDBHelper extends SQLiteOpenHelper{
                     cursor.getString(cursor.getColumnIndex("TimeS")),
                     cursor.getString(cursor.getColumnIndex("TimeE")),
                     cursor.getInt(cursor.getColumnIndex("Pattern")));
-            AllEvents.add(event);
+            allEvents.add(event);
         }
-        return AllEvents;
+        return allEvents;
     }
 
     // delete方法未完成
+
     public int delete(String condition){
-        int count = mDB.delete(table_name,condition,null);
+        int count = mDB.delete(TABLE_NAME,condition,null);
         return count;
     }
 
     public int deleteAll(){
-        int count = mDB.delete(table_name,"1=1",null);
+        int count = mDB.delete(TABLE_NAME,"1=1",null);
         return count;
     }
 }

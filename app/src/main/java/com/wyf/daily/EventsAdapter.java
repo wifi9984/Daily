@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,23 +15,26 @@ import java.util.ArrayList;
  *  Adapter用于呈现数据库存储的事件详情
  *  从数据库拉取数据，写到每一个Event对象里面，再通过对象读取数据加载到RecyclerView中
  *  这一块我堵了好久，RecyclerView作为一个高级控件，需要多看文档= =
+ *
+ *  @author wifi9984
+ *  @date 2017/9/1
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder>
-        implements View.OnClickListener,View.OnLongClickListener,View.OnTouchListener{
+        implements View.OnClickListener,View.OnLongClickListener{
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<Event> AllEvents;
+    private ArrayList<Event> allEvents;
 
     public EventsAdapter(Context context, ArrayList<Event> publicArray) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        AllEvents = publicArray;
+        allEvents = publicArray;
     }
 
     public void onDataUpdate(ArrayList<Event> publicArray) {
-        AllEvents = publicArray;
+        allEvents = publicArray;
         notifyDataSetChanged();
     }
 
@@ -49,15 +50,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
         ItemHolder itemHolder = holder;
-        itemHolder.tv_time.setText(AllEvents.get(position).getTime_s());
-        itemHolder.tv_event.setText(AllEvents.get(position).getEvent());
-        itemHolder.tv_inform.setText(setPattern(position));
-        itemHolder.card_item.setTag(position);
+        itemHolder.tvTime.setText(allEvents.get(position).getTimeStart());
+        itemHolder.tvEvent.setText(allEvents.get(position).getEvent());
+        itemHolder.tvInform.setText(setPattern(position));
+        itemHolder.cardItem.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return AllEvents.size();
+        return allEvents.size();
     }
 
     @Override
@@ -80,33 +81,29 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         return false;
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (mOnTouchListener != null){
-            mOnTouchListener.onTouch(view,motionEvent);
-        }
-        return false;
-    }
-
     public static class ItemHolder extends RecyclerView.ViewHolder{
-        public TextView tv_time;
-        public TextView tv_event;
-        public TextView tv_inform;
-        public CardView card_item;
+        public TextView tvTime;
+        public TextView tvEvent;
+        public TextView tvInform;
+        public CardView cardItem;
 
         public ItemHolder(View v){
             super(v);
-            card_item = v.findViewById(R.id.card_item);
-            tv_time = v.findViewById(R.id.tv_home_read_start_time);
-            tv_event = v.findViewById(R.id.tv_home_read_event);
-            tv_inform = v.findViewById(R.id.tv_home_read_inform_time);
+            cardItem = v.findViewById(R.id.card_item);
+            tvTime = v.findViewById(R.id.tv_home_read_start_time);
+            tvEvent = v.findViewById(R.id.tv_home_read_event);
+            tvInform = v.findViewById(R.id.tv_home_read_inform_time);
         }
     }
 
-    // Pattern的显示效果实现
-    public String setPattern(int position){
+    /**
+     * Pattern的显示效果实现
+     * @param position
+     * @return
+     */
+    private String setPattern(int position){
         String pattern = "" ;
-        Integer code = AllEvents.get(position).getPattern();
+        Integer code = allEvents.get(position).getPattern();
         switch (code){
             case 1:
                 pattern = "将在上一事项结束后提醒你";
@@ -123,13 +120,23 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
             case 5:
                 pattern = "使用自定义模式提醒";
                 break;
+            default:
+                pattern = "将在上一事项结束后提醒你";
+                break;
         }
         return pattern;
     }
 
-    // 自建OnItemClickListener
+    /**
+     * 自建OnItemClickListener
+     */
     private OnItemClickListener mOnItemClickListener = null;
     public static interface OnItemClickListener{
+        /**
+         *
+         * @param v
+         * @param position
+         */
         void onItemClick(View v,int position);
     }
 
@@ -137,23 +144,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         this.mOnItemClickListener = listener;
     }
 
-    // 自建OnItemLongClickListener
+    /**
+     * 自建OnItemLongClickListener
+     */
     private OnItemLongClickListener mOnItemLongClickListener = null;
     public static interface OnItemLongClickListener{
+        /**
+         *
+         * @param v
+         * @param position
+         */
         void onItemLongClick(View v,int position);
     }
 
     public void setOnItemLongClickListener(OnItemLongClickListener listner){
         this.mOnItemLongClickListener = listner;
     }
-
-    private View.OnTouchListener mOnTouchListener = null;
-    public static interface OnTouch{
-        void onTouch(View v,MotionEvent motionEvent);
-    }
-
-    public void setOnTouchListener(View.OnTouchListener listener){
-        this.mOnTouchListener = listener;
-    }
-
 }

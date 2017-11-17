@@ -1,6 +1,5 @@
 package com.wyf.daily;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -12,7 +11,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
+
+/**
+ * Main Activity
+ *
+ * @author wifi9984
+ * @date 2017/8/31
+ */
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -21,7 +26,9 @@ public class MainActivity extends AppCompatActivity
     private DebugFragment debugFragment;
     private SettingsFragment settingsFragment;
     private NotebookFragment notebookFragment;
-    private android.app.Fragment isFragment;//showing fragment
+    // record showing fragment
+
+    private android.app.Fragment isFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    // 初始化Toolbar
+    /**
+     *  初始化Toolbar
+     */
     public void initToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("所有事项");
@@ -42,12 +51,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
     }
 
-    // 初始化Fragment，默认加载EventsFragment
+    /**
+     * 初始化Fragment，默认加载EventsFragment
+     * @param savedInstanceState
+     */
     public void initFragment(Bundle savedInstanceState){
         if(savedInstanceState == null){
             FragmentManager fm = getFragmentManager();
@@ -60,7 +72,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // Fragment的切换
+    /**
+     * Fragment的切换
+     * @param from
+     * @param to
+     */
     public void switchContent(Fragment from,Fragment to){
         if(isFragment != to) {
             isFragment = to;

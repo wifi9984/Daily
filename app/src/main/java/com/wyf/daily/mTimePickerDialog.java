@@ -8,8 +8,11 @@ import android.view.WindowManager;
 import android.widget.TimePicker;
 
 /**
- *  自定义的TimePickerDialog
- *  对于Android 5.1有几个不兼容的方法待解决
+ * 自定义的TimePickerDialog
+ * 对于Android 5.1有几个不兼容的方法待解决
+ *
+ * @author wifi9984
+ * @date 2017/8/31
  */
 
 public class mTimePickerDialog implements View.OnClickListener,TimePicker.OnTimeChangedListener {

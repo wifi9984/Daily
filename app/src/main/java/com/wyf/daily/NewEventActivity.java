@@ -1,8 +1,5 @@
 package com.wyf.daily;
 
-import com.wyf.daily.EventsDBHelper;
-import com.wyf.daily.Event;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,17 +18,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/*
- *  从EventsFragment按加号按钮添加新事件的Activity
+/**
+ * 从EventsFragment按加号按钮添加新事件的Activity
+ *
+ * @author wifi9984
+ * @date 2017/8/31
  */
 
 public class NewEventActivity extends Activity implements View.OnClickListener,
         mDatePickerDialog.OnDateSetListener,mTimePickerDialog.OnTimeSetListener{
-    private TextView tv_pick_date;
-    private TextView tv_pick_time_start;
-    private TextView tv_pick_time_end;
-    private TextView tv_select_pattern;
-    private EditText edt_event;
+    private TextView tvPickDate;
+    private TextView tvPickTimeStart;
+    private TextView tvPickTimeEnd;
+    private TextView tvSelectPattern;
+    private EditText edtEvent;
     private EventsDBHelper mHelper;
 
     @Override
@@ -83,37 +83,37 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
             case(R.id.tv_pick_date):
                 // 加载+初始化DatePickerDialog，设定事件日期
                 Calendar calendar = Calendar.getInstance();
-                mDatePickerDialog picker_date = new mDatePickerDialog(this);
-                picker_date.setDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),
+                mDatePickerDialog pickerDate = new mDatePickerDialog(this);
+                pickerDate.setDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH),this);
-                picker_date.show();
+                pickerDate.show();
                 break;
             case(R.id.tv_pick_time_start):
                 // 加载+初始化TimePickerDialog，设定开始日期
                 Calendar calendar1 = Calendar.getInstance();
-                mTimePickerDialog picker_times = new mTimePickerDialog(this);
-                picker_times.setTime(calendar1.get(Calendar.HOUR_OF_DAY),calendar1.get(Calendar.MINUTE),this);
-                picker_times.show();
-                tv_pick_time_start.setVisibility(View.INVISIBLE);
+                mTimePickerDialog pickerTimes = new mTimePickerDialog(this);
+                pickerTimes.setTime(calendar1.get(Calendar.HOUR_OF_DAY),calendar1.get(Calendar.MINUTE),this);
+                pickerTimes.show();
+                tvPickTimeStart.setVisibility(View.INVISIBLE);
                 break;
             case (R.id.tv_pick_time_end):
                 // 加载+初始化TimePickerDialog，设定结束日期
                 Calendar calendar2 = Calendar.getInstance();
-                mTimePickerDialog picker_timee = new mTimePickerDialog(this);
-                picker_timee.setTime(calendar2.get(Calendar.HOUR_OF_DAY),calendar2.get(Calendar.MINUTE),this);
-                picker_timee.show();
-                tv_pick_time_end.setVisibility(View.INVISIBLE);
+                mTimePickerDialog pickerTimee = new mTimePickerDialog(this);
+                pickerTimee.setTime(calendar2.get(Calendar.HOUR_OF_DAY),calendar2.get(Calendar.MINUTE),this);
+                pickerTimee.show();
+                tvPickTimeEnd.setVisibility(View.INVISIBLE);
                 break;
             case (R.id.tv_select_pattern):
                 // 选择提醒模式，有点迷...就是用数字存储提醒的模式
-                final String[] list_pattern = {"上一件事结束后","半小时前","一小时前","三天前","自定义"};
+                final String[] listPattern = {"上一件事结束后","半小时前","一小时前","三天前","自定义"};
                 final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle("选择提醒方式：");
-                builder1.setSingleChoiceItems(list_pattern, 0, new DialogInterface.OnClickListener() {
+                builder1.setSingleChoiceItems(listPattern, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String str = list_pattern[which];
-                        tv_select_pattern.setText(str);
+                        String str = listPattern[which];
+                        tvSelectPattern.setText(str);
                     }
                 });
                 builder1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -123,23 +123,25 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 });
                 builder1.show();
                 break;
+            default:
+                break;
         }
     }
 
     void init(){
-        tv_pick_date = (TextView)findViewById(R.id.tv_pick_date);
-        tv_pick_date.setOnClickListener(this);
-        tv_pick_time_start = (TextView)findViewById(R.id.tv_pick_time_start);
-        tv_pick_time_start.setOnClickListener(this);
-        tv_pick_time_end = (TextView)findViewById(R.id.tv_pick_time_end);
-        tv_pick_time_end.setOnClickListener(this);
-        tv_select_pattern = (TextView)findViewById(R.id.tv_select_pattern);
-        tv_select_pattern.setOnClickListener(this);
-        edt_event = (EditText)findViewById(R.id.edt_event);
-        tv_pick_date.setText(TimeUtils.getNowDate());
-        tv_pick_time_start.setText(TimeUtils.getNowTime());
-        tv_pick_time_end.setText(TimeUtils.getNowTime());
-        tv_select_pattern.setText("上一件事结束后");
+        tvPickDate = (TextView)findViewById(R.id.tv_pick_date);
+        tvPickDate.setOnClickListener(this);
+        tvPickTimeStart = (TextView)findViewById(R.id.tv_pick_time_start);
+        tvPickTimeStart.setOnClickListener(this);
+        tvPickTimeEnd = (TextView)findViewById(R.id.tv_pick_time_end);
+        tvPickTimeEnd.setOnClickListener(this);
+        tvSelectPattern = (TextView)findViewById(R.id.tv_select_pattern);
+        tvSelectPattern.setOnClickListener(this);
+        edtEvent = (EditText)findViewById(R.id.edt_event);
+        tvPickDate.setText(TimeUtils.getNowDate());
+        tvPickTimeStart.setText(TimeUtils.getNowTime());
+        tvPickTimeEnd.setText(TimeUtils.getNowTime());
+        tvSelectPattern.setText("上一件事结束后");
         findViewById(R.id.btn_confirm_add).setOnClickListener(this);
         findViewById(R.id.btn_cancel_add).setOnClickListener(this);
     }
@@ -152,7 +154,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
 
     public int pattern(String str){
         // 把pattern转化为数字
-        Integer pattern;
+        int pattern;
         switch (str){
             case ("半小时前"):
                 pattern = 2;
@@ -173,11 +175,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         return pattern;
     }
 
-    // 保存Event，用到数据库的insert操作
+    /**
+     * 保存Event，用到数据库的insert操作
+     */
     public void onSaveEvent(){
-        Event event = new Event(edt_event.getText().toString(),tv_pick_date.getText().toString(),
-                tv_pick_time_start.getText().toString(),tv_pick_time_end.getText().toString(),
-                pattern(tv_select_pattern.getText().toString()));
+        Event event = new Event(edtEvent.getText().toString(), tvPickDate.getText().toString(),
+                tvPickTimeStart.getText().toString(), tvPickTimeEnd.getText().toString(),
+                pattern(tvSelectPattern.getText().toString()));
         mHelper.insert(event);
     }
 
@@ -204,7 +208,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年M月d日 - EE");
         Date selDate = new Date(year - 1900,monthOfYear,dayOfMonth);
         String strDate = dateFormat.format(selDate);
-        tv_pick_date.setText(strDate);
+        tvPickDate.setText(strDate);
     }
 
     @Override
@@ -215,13 +219,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         SimpleDateFormat timeFormat = new SimpleDateFormat("a - h:mm");
         Date selTime = new Date(year,month,date,hour,min);
         String strTime = timeFormat.format(selTime);
-        if(tv_pick_time_start.getVisibility() == View.INVISIBLE){
-            tv_pick_time_start.setVisibility(View.VISIBLE);
-            tv_pick_time_start.setText(strTime);
-            tv_pick_time_end.setText(strTime);
-        }else if(tv_pick_time_end.getVisibility() == View.INVISIBLE){
-            tv_pick_time_end.setVisibility(View.VISIBLE);
-            tv_pick_time_end.setText(strTime);
+        if(tvPickTimeStart.getVisibility() == View.INVISIBLE){
+            tvPickTimeStart.setVisibility(View.VISIBLE);
+            tvPickTimeStart.setText(strTime);
+            tvPickTimeEnd.setText(strTime);
+        }else if(tvPickTimeEnd.getVisibility() == View.INVISIBLE){
+            tvPickTimeEnd.setVisibility(View.VISIBLE);
+            tvPickTimeEnd.setText(strTime);
         }
 
     }
