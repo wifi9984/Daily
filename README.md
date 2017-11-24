@@ -7,7 +7,7 @@ Daily
 基本信息<br>
 ---
 &emsp;&emsp;最低运行版本：Android 6.0(API 23)<br>
-&emsp;&emsp;SDK版本：Android 8.0(API 26)
+&emsp;&emsp;SDK版本：Android 8.1(API 27)
 
 功能<br>
 ---
@@ -23,7 +23,7 @@ About Daily<br>
 Basic Information<br>
 ---
 &ensp;&ensp;minSDKVersion:Android 6.0(API 23)<br>
-&ensp;&ensp;compileSDKVersion:Android 8.0(API 26)
+&ensp;&ensp;compileSDKVersion:Android 8.1(API 27)
 
 Features<br>
 ---
