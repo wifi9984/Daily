@@ -2,8 +2,6 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_item"
-    android:theme="@style/AppTheme"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginEnd="8dp"
@@ -13,16 +11,19 @@
     android:elevation="5dp">
 
     <LinearLayout
+        android:id="@+id/item_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginStart="8dp">
+        android:background="@drawable/item_touched_ripple"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
             android:id="@+id/tv_home_read_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="13dp"
             android:layout_marginTop="10dp"
             android:textSize="14sp"
             android:textColor="@color/grey500"/>
@@ -32,7 +33,7 @@
             android:id="@+id/tv_home_read_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="23dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/brown700"
             android:layout_gravity="center_vertical"
@@ -42,7 +43,7 @@
             android:id="@+id/tv_home_read_inform_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="23dp"
             android:layout_marginTop="8dp"
             android:textSize="12sp"
             android:textColor="@color/grey500"/>

@@ -37,9 +37,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     protected Context mContext;
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
-    private PopupWindow popDeleteItem;
-    private Button btn_delete_item;
-    public int x,y;
 
     @Nullable
     @Override
@@ -74,16 +71,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         srl_main.setOnRefreshListener(this);
         srl_main.setColorSchemeResources(R.color.indigo400,R.color.colorPrimaryDark);
         WindowManager wm = this.getActivity().getWindowManager();
-        popDeleteItem = new PopupWindow(this.getActivity());
-        popDeleteItem.setWidth(wm.getDefaultDisplay().getWidth()/8);
-        popDeleteItem.setHeight(wm.getDefaultDisplay().getHeight()/20);
-        popDeleteItem.setBackgroundDrawable(null);
-        popView = View.inflate(getActivity(),R.layout.pop_delete_item,null);
-        popDeleteItem.setContentView(popView);
-        popDeleteItem.setOutsideTouchable(false);
-        popDeleteItem.setFocusable(true);
-        btn_delete_item = popView.findViewById(R.id.btn_delete_pop);
-        btn_delete_item.setOnClickListener(this);
         // RecyclerView初始化
         mRecyclerView = mView.findViewById(R.id.rv_events);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false){
@@ -104,7 +91,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mAdapter.setOnItemLongClickListener(new EventsAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int position) {
-                popDeleteItem.showAsDropDown(v);
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -118,12 +104,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
             Intent intent = new Intent(getActivity(),NewEventActivity.class);
             startActivity(intent);
             onStop();
-        }else if(v.getId() == R.id.btn_delete_pop){
-            // 执行SQLite的delete方法
-            // getPosition存储选中的item的position
-            popDeleteItem.dismiss();
         }
-
     }
 
     private Handler mHandler = new Handler();

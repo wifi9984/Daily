@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,11 +48,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemHolder holder, int position) {
+    public void onBindViewHolder(ItemHolder holder, final int position) {
         ItemHolder itemHolder = holder;
         itemHolder.tvTime.setText(allEvents.get(position).getTimeStart());
         itemHolder.tvEvent.setText(allEvents.get(position).getEvent());
         itemHolder.tvInform.setText(setPattern(position));
+        itemHolder.itemLayout.setTag(position);
         itemHolder.cardItem.setTag(position);
     }
 
@@ -86,10 +87,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         public TextView tvEvent;
         public TextView tvInform;
         public CardView cardItem;
+        public LinearLayout itemLayout;
 
         public ItemHolder(View v){
             super(v);
             cardItem = v.findViewById(R.id.card_item);
+            itemLayout = v.findViewById(R.id.item_layout);
             tvTime = v.findViewById(R.id.tv_home_read_start_time);
             tvEvent = v.findViewById(R.id.tv_home_read_event);
             tvInform = v.findViewById(R.id.tv_home_read_inform_time);
@@ -106,22 +109,22 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         Integer code = allEvents.get(position).getPattern();
         switch (code){
             case 1:
-                pattern = "将在上一事项结束后提醒你";
+                pattern = "上一件事结束后提醒";
                 break;
             case 2:
-                pattern = "将在开始前半小时提醒你";
+                pattern = "提前半小时提醒";
                 break;
             case 3:
-                pattern = "将在开始前一小时提醒你";
+                pattern = "提前一小时提醒";
                 break;
             case 4:
-                pattern = "将在开始前3天提醒你";
+                pattern = "提前3天提醒";
                 break;
             case 5:
-                pattern = "使用自定义模式提醒";
+                pattern = "自定义提醒";
                 break;
             default:
-                pattern = "将在上一事项结束后提醒你";
+                pattern = "上一件事结束后提醒";
                 break;
         }
         return pattern;
