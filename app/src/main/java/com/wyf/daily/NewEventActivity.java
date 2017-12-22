@@ -6,16 +6,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
+import android.transition.ArcMotion;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,22 +33,31 @@ import java.util.Date;
  * 从EventsFragment按加号按钮添加新事件的Activity
  *
  * @author wifi9984
- * @date 2017/8/31
+ * @date 2017/12/22
  */
 
 public class NewEventActivity extends Activity implements View.OnClickListener,
-        mDatePickerDialog.OnDateSetListener,mTimePickerDialog.OnTimeSetListener{
+        CustomDatePickerDialog.OnDateSetListener,CustomTimePickerDialog.OnTimeSetListener{
     private TextView tvPickDate;
     private TextView tvPickTimeStart;
     private TextView tvPickTimeEnd;
     private TextView tvSelectPattern;
     private EditText edtEvent;
     private EventsDBHelper mHelper;
+    private RelativeLayout rootView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // 设置WindowManager使得Activity以FloatingPage的样式展示，同时使用设定的宽高和Gravity
+        Window win = this.getWindow();
+        win.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = win.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.gravity = Gravity.BOTTOM;
+        win.setAttributes(lp);
         setContentView(R.layout.add_event);
         init();
     }
@@ -57,7 +76,6 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 // “确认添加”的操作，需要检查是否为空：if .... = null
                 onSaveEvent();
                 onDismiss();
-                onStop();
                 break;
             case(R.id.btn_cancel_add):
                 // 点击取消时需要提醒用户确认一次
@@ -84,7 +102,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
             case(R.id.tv_pick_date):
                 // 加载+初始化DatePickerDialog，设定事件日期
                 Calendar calendar = Calendar.getInstance();
-                mDatePickerDialog pickerDate = new mDatePickerDialog(this);
+                CustomDatePickerDialog pickerDate = new CustomDatePickerDialog(this);
                 pickerDate.setDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH),this);
                 pickerDate.show();
@@ -92,18 +110,18 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
             case(R.id.tv_pick_time_start):
                 // 加载+初始化TimePickerDialog，设定开始日期
                 Calendar calendar1 = Calendar.getInstance();
-                mTimePickerDialog pickerTimes = new mTimePickerDialog(this);
+                CustomTimePickerDialog pickerTimes = new CustomTimePickerDialog(this);
                 pickerTimes.setTime(calendar1.get(Calendar.HOUR_OF_DAY),calendar1.get(Calendar.MINUTE),this);
                 pickerTimes.show();
-                tvPickTimeStart.setVisibility(View.INVISIBLE);
+                tvPickTimeStart.setSelected(true);
                 break;
             case (R.id.tv_pick_time_end):
                 // 加载+初始化TimePickerDialog，设定结束日期
                 Calendar calendar2 = Calendar.getInstance();
-                mTimePickerDialog pickerTimee = new mTimePickerDialog(this);
+                CustomTimePickerDialog pickerTimee = new CustomTimePickerDialog(this);
                 pickerTimee.setTime(calendar2.get(Calendar.HOUR_OF_DAY),calendar2.get(Calendar.MINUTE),this);
                 pickerTimee.show();
-                tvPickTimeEnd.setVisibility(View.INVISIBLE);
+                tvPickTimeEnd.setSelected(true);
                 break;
             case (R.id.tv_select_pattern):
                 // 选择提醒模式，有点迷...就是用数字存储提醒的模式
@@ -130,6 +148,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
     }
 
     void init(){
+        rootView = findViewById(R.id.activity_add_event);
         tvPickDate = (TextView)findViewById(R.id.tv_pick_date);
         tvPickDate.setOnClickListener(this);
         tvPickTimeStart = (TextView)findViewById(R.id.tv_pick_time_start);
@@ -145,6 +164,21 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         tvSelectPattern.setText("上一件事结束后");
         findViewById(R.id.btn_confirm_add).setOnClickListener(this);
         findViewById(R.id.btn_cancel_add).setOnClickListener(this);
+
+        ArcMotion arcMotion = new ArcMotion();
+        arcMotion.setMinimumHorizontalAngle(50f);
+        arcMotion.setMinimumVerticalAngle(50f);
+
+        Interpolator interpolator = AnimationUtils.loadInterpolator(this,
+                android.R.interpolator.fast_out_slow_in);
+
+        CustomChangeBounds changeBounds = new CustomChangeBounds();
+        changeBounds.setPathMotion(arcMotion);
+        changeBounds.setInterpolator(interpolator);
+        changeBounds.addTarget(rootView);
+
+        getWindow().setSharedElementEnterTransition(changeBounds);
+        getWindow().setSharedElementExitTransition(changeBounds);
     }
 
     public void onDismiss(){
@@ -220,14 +254,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         SimpleDateFormat timeFormat = new SimpleDateFormat("a - h:mm");
         Date selTime = new Date(year,month,date,hour,min);
         String strTime = timeFormat.format(selTime);
-        if(tvPickTimeStart.getVisibility() == View.INVISIBLE){
-            tvPickTimeStart.setVisibility(View.VISIBLE);
+        if(tvPickTimeStart.isSelected()){
+            tvPickTimeStart.setSelected(false);
             tvPickTimeStart.setText(strTime);
             tvPickTimeEnd.setText(strTime);
-        }else if(tvPickTimeEnd.getVisibility() == View.INVISIBLE){
-            tvPickTimeEnd.setVisibility(View.VISIBLE);
+        }else if(tvPickTimeEnd.isSelected()){
+            tvPickTimeEnd.setSelected(false);
             tvPickTimeEnd.setText(strTime);
         }
-
     }
 }

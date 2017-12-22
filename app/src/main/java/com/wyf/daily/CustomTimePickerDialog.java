@@ -15,12 +15,12 @@ import android.widget.TimePicker;
  * @date 2017/8/31
  */
 
-public class mTimePickerDialog implements View.OnClickListener,TimePicker.OnTimeChangedListener {
+public class CustomTimePickerDialog implements View.OnClickListener,TimePicker.OnTimeChangedListener {
     private View view;
     private Dialog dialog;
     private TimePicker picker_time;
 
-    public mTimePickerDialog(Context context){
+    public CustomTimePickerDialog(Context context){
         view = LayoutInflater.from(context).inflate(R.layout.picker_time,null);
         dialog = new Dialog(context,R.style.Theme_AppCompat_Light_Dialog_Alert_Self);
         picker_time = (TimePicker)view.findViewById(R.id.picker_time);

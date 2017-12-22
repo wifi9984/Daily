@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name=".NewEventActivity"
-            android:theme="@style/FloatingPage">
+            android:theme="@style/AppTheme.FloatingPage">
         </activity>
     </application>
 

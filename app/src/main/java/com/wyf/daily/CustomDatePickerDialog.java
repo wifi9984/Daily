@@ -16,12 +16,12 @@ import java.util.Date;
  * @date 2017/8/31
  */
 
-public class mDatePickerDialog implements View.OnClickListener,DatePicker.OnDateChangedListener {
+public class CustomDatePickerDialog implements View.OnClickListener,DatePicker.OnDateChangedListener {
     private Dialog dialog;
     private View view;
     private DatePicker picker_date;
 
-    public mDatePickerDialog(Context context){
+    public CustomDatePickerDialog(Context context){
         view = LayoutInflater.from(context).inflate(R.layout.picker_date,null);
         dialog = new Dialog(context,R.style.Theme_AppCompat_Light_Dialog_Alert_Self);
         picker_date = (DatePicker)view.findViewById(R.id.picker_date);

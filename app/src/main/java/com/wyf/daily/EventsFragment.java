@@ -6,17 +6,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.ArcMotion;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ import java.util.ArrayList;
  *  EventsFragment来呈现“所有事项”界面
  *
  *  @author wifi9984
- *  @date 2017/8/31
+ *  @date 2017/12/22
  */
 
 public class EventsFragment extends android.app.Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
@@ -33,7 +35,6 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     private SwipeRefreshLayout srl_main;
     private EventsDBHelper mHelper;
     protected View mView;
-    protected View popView;
     protected Context mContext;
     private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
@@ -65,12 +66,11 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     }
 
     void init(){
-        fab_add = mView.findViewById(R.id.fab_add);
+        fab_add = mView.findViewById(R.id.fab_add_event);
         srl_main = mView.findViewById(R.id.srl_main);
         fab_add.setOnClickListener(this);
         srl_main.setOnRefreshListener(this);
         srl_main.setColorSchemeResources(R.color.indigo400,R.color.colorPrimaryDark);
-        WindowManager wm = this.getActivity().getWindowManager();
         // RecyclerView初始化
         mRecyclerView = mView.findViewById(R.id.rv_events);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false){
@@ -100,9 +100,11 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
 
     @Override
     public void onClick(View v){
-        if(v.getId() == R.id.fab_add){
+        if(v.getId() == R.id.fab_add_event){
             Intent intent = new Intent(getActivity(),NewEventActivity.class);
-            startActivity(intent);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
+                    (this.getActivity(), fab_add, "transition_morph_view_add");
+            startActivity(intent, options.toBundle());
             onStop();
         }
     }

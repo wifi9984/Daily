@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * 功能：小本本
+ * 标题：小本本
+ * 功能：纪念日、倒数日
  *
  * @author wifi9984
- * @date 2017/11/17
+ * @date 2017/12/22
  */
 
 public class NotebookFragment extends Fragment {

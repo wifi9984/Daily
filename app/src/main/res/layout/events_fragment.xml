@@ -30,9 +30,10 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add"
+        android:id="@+id/fab_add_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:transitionName="transition_morph_view_fab"
         android:elevation="5dp"
         android:src="@drawable/ic_add_white_24dp"
         app:fabSize="normal"
