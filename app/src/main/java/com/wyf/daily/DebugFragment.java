@@ -33,7 +33,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
-        mView = inflater.inflate(R.layout.debug_fragment,container,false);
+        mView = inflater.inflate(R.layout.fragment_debug,container,false);
         init();
         return mView;
     }
@@ -46,18 +46,18 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
     }
 
     void init(){
-        btnRead = (Button)mView.findViewById(R.id.btn_debug_read);
-        btnClean = (Button)mView.findViewById(R.id.btn_debug_clean);
+        btnRead = mView.findViewById(R.id.btn_debug_read);
+        btnClean = mView.findViewById(R.id.btn_debug_clean);
         btnRead.setOnClickListener(this);
         btnClean.setOnClickListener(this);
-        tvLog = (TextView)mView.findViewById(R.id.tv_debug_log);
+        tvLog = mView.findViewById(R.id.tv_debug_log);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_debug_read){
+        if (v.getId() == R.id.btn_debug_read) {
             // 读取数据库数据，代码我也是抄来的，改好了2333
-            if (mHelper == null){
+            if (mHelper == null) {
                 tvLog.setText("查找失败");
                 return;
             }
@@ -73,7 +73,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
                 desc = String.format(Locale.getDefault(),"%s\n　提醒方式：%d", desc, event.getPattern());
             }
             tvLog.setText(desc);
-        }else if(v.getId() == R.id.btn_debug_clean){
+        } else if (v.getId() == R.id.btn_debug_clean) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
             builder.setTitle("令人窒息的操作！");
             builder.setMessage("您确定要删除数据库全部内容吗？");

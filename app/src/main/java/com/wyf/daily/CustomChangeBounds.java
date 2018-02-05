@@ -17,7 +17,7 @@ public class CustomChangeBounds extends ChangeBounds {
     @Override
     public Animator createAnimator(ViewGroup sceneRoot, TransitionValues startValues, TransitionValues endValues) {
         Animator changeBounds = super.createAnimator(sceneRoot, startValues, endValues);
-        if(sceneRoot == null || startValues == null || endValues == null){
+        if (sceneRoot == null || startValues == null || endValues == null) {
             return null;
         }
         changeBounds.setDuration(300);

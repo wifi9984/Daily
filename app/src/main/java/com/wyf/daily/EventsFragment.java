@@ -12,13 +12,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.ArcMotion;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 
@@ -29,7 +25,8 @@ import java.util.ArrayList;
  *  @date 2017/12/22
  */
 
-public class EventsFragment extends android.app.Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
+public class EventsFragment extends android.app.Fragment
+        implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener {
 
     private FloatingActionButton fab_add;
     private SwipeRefreshLayout srl_main;
@@ -44,7 +41,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         mHelper = EventsDBHelper.getInstance(mContext,1);
-        mView = inflater.inflate(R.layout.events_fragment,container,false);
+        mView = inflater.inflate(R.layout.fragment_events,container,false);
         init();
         return mView;
     }
@@ -65,7 +62,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
         mHelper.closeLink();
     }
 
-    void init(){
+    void init() {
         fab_add = mView.findViewById(R.id.fab_add_event);
         srl_main = mView.findViewById(R.id.srl_main);
         fab_add.setOnClickListener(this);
@@ -99,7 +96,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
         if(v.getId() == R.id.fab_add_event){
             Intent intent = new Intent(getActivity(),NewEventActivity.class);
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
@@ -111,7 +108,7 @@ public class EventsFragment extends android.app.Fragment implements View.OnClick
 
     private Handler mHandler = new Handler();
     @Override
-    public void onRefresh(){
+    public void onRefresh() {
         mHandler.postDelayed(mRefresh,750);
         mAdapter.onDataUpdate(mHelper.allEvents(mHelper.getReadableDatabase()));
     }

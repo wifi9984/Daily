@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder>
-        implements View.OnClickListener,View.OnLongClickListener{
+        implements View.OnClickListener,View.OnLongClickListener {
 
     private Context mContext;
     private LayoutInflater mInflater;
@@ -69,27 +69,27 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
 
     @Override
     public void onClick(View view) {
-        if (mOnItemClickListener != null){
+        if (mOnItemClickListener != null) {
             mOnItemClickListener.onItemClick(view,(int)view.getTag());
         }
     }
 
     @Override
     public boolean onLongClick(View view) {
-        if (mOnItemLongClickListener != null){
+        if (mOnItemLongClickListener != null) {
             mOnItemLongClickListener.onItemLongClick(view,(int)view.getTag());
         }
         return false;
     }
 
-    public static class ItemHolder extends RecyclerView.ViewHolder{
+    public static class ItemHolder extends RecyclerView.ViewHolder {
         public TextView tvTime;
         public TextView tvEvent;
         public TextView tvInform;
         public CardView cardItem;
         public LinearLayout itemLayout;
 
-        public ItemHolder(View v){
+        public ItemHolder(View v) {
             super(v);
             cardItem = v.findViewById(R.id.card_item);
             itemLayout = v.findViewById(R.id.item_layout);
@@ -101,13 +101,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
 
     /**
      * Pattern的显示效果实现
+     *
      * @param position
-     * @return
+     * @return pattern
      */
-    private String setPattern(int position){
+    private String setPattern(int position) {
         String pattern = "" ;
         Integer code = allEvents.get(position).getPattern();
-        switch (code){
+        switch (code) {
             case 1:
                 pattern = "上一件事结束后提醒";
                 break;
@@ -134,7 +135,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
      * 自建OnItemClickListener
      */
     private OnItemClickListener mOnItemClickListener = null;
-    public static interface OnItemClickListener{
+    public static interface OnItemClickListener {
         /**
          *
          * @param v
@@ -143,7 +144,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
         void onItemClick(View v,int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
     }
 

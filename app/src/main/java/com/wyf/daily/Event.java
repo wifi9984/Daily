@@ -17,17 +17,18 @@ public class Event {
     /**
      * 类的空构造方法，不能删= =
      */
-    public Event(){
+    public Event() {
 
     }
 
     /**
      * 重载的构造方法，用来写入参数，在NewEventActivity里面有引用
-     * @param event
-     * @param date
-     * @param timeStart
-     * @param timeEnd
-     * @param pattern
+     *
+     * @param event 事件名
+     * @param date 日期
+     * @param timeStart 事件开始时间
+     * @param timeEnd 事件结束时间
+     * @param pattern 提醒方式
      */
     public Event(String event, String date, String timeStart, String timeEnd, Integer pattern) {
         this.event = event;

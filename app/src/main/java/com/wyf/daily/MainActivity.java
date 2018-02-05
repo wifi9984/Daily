@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.avos.avoscloud.AVOSCloud;
+
 /**
  * Main Activity
  *
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     private EventsFragment eventsFragment;
     private DebugFragment debugFragment;
     private SettingsFragment settingsFragment;
-    private NotebookFragment notebookFragment;
+    private SignUpFragment signUpFragment;
     // record showing fragment
 
     private android.app.Fragment isFragment;
@@ -33,21 +35,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AVOSCloud.initialize(this, "JwKhE7dXF0KNRlam6zUn1KMR-9Nh9j0Va", "3v4GrE3nHuGmRcytTRefRY97");
+        AVOSCloud.setDebugLogEnabled(true);
         setContentView(R.layout.activity_main);
         initToolbar();
         initFragment(savedInstanceState);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     /**
      *  初始化Toolbar
      */
-    public void initToolbar(){
+    public void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("所有事项");
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -56,9 +60,10 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * 初始化Fragment，默认加载EventsFragment
+     *
      * @param savedInstanceState
      */
-    public void initFragment(Bundle savedInstanceState){
+    public void initFragment(Bundle savedInstanceState) {
         if(savedInstanceState == null){
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -72,10 +77,11 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Fragment的切换
+     *
      * @param from
      * @param to
      */
-    public void switchContent(Fragment from,Fragment to){
+    public void switchContent(Fragment from,Fragment to) {
         if(isFragment != to) {
             isFragment = to;
             FragmentManager fm = getFragmentManager();
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -115,10 +121,10 @@ public class MainActivity extends AppCompatActivity
             }
             switchContent(isFragment,debugFragment);
         } else if (id == R.id.nav_notes) {
-            if(notebookFragment == null){
-                notebookFragment = new NotebookFragment();
+            if(signUpFragment == null){
+                signUpFragment = new SignUpFragment();
             }
-            switchContent(isFragment,notebookFragment);
+            switchContent(isFragment, signUpFragment);
         } else if (id == R.id.nav_settings) {
             if(settingsFragment == null){
                 settingsFragment = new SettingsFragment();
@@ -129,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

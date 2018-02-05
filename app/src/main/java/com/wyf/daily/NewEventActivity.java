@@ -6,9 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.transition.ArcMotion;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -20,10 +18,7 @@ import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +32,7 @@ import java.util.Date;
  */
 
 public class NewEventActivity extends Activity implements View.OnClickListener,
-        CustomDatePickerDialog.OnDateSetListener,CustomTimePickerDialog.OnTimeSetListener{
+        CustomDatePickerDialog.OnDateSetListener,CustomTimePickerDialog.OnTimeSetListener {
     private TextView tvPickDate;
     private TextView tvPickTimeStart;
     private TextView tvPickTimeEnd;
@@ -58,7 +53,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.BOTTOM;
         win.setAttributes(lp);
-        setContentView(R.layout.add_event);
+        setContentView(R.layout.activity_new_event);
         init();
     }
 
@@ -71,13 +66,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case(R.id.btn_confirm_add):
+        switch (v.getId()) {
+            case (R.id.btn_confirm_add):
                 // “确认添加”的操作，需要检查是否为空：if .... = null
                 onSaveEvent();
                 onDismiss();
                 break;
-            case(R.id.btn_cancel_add):
+            case (R.id.btn_cancel_add):
                 // 点击取消时需要提醒用户确认一次
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("正在编辑：");
@@ -99,7 +94,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                 Button button = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
                 button.setTextColor(getResources().getColor(R.color.grey500));
                 break;
-            case(R.id.tv_pick_date):
+            case (R.id.tv_pick_date):
                 // 加载+初始化DatePickerDialog，设定事件日期
                 Calendar calendar = Calendar.getInstance();
                 CustomDatePickerDialog pickerDate = new CustomDatePickerDialog(this);
@@ -107,7 +102,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
                         calendar.get(Calendar.DAY_OF_MONTH),this);
                 pickerDate.show();
                 break;
-            case(R.id.tv_pick_time_start):
+            case (R.id.tv_pick_time_start):
                 // 加载+初始化TimePickerDialog，设定开始日期
                 Calendar calendar1 = Calendar.getInstance();
                 CustomTimePickerDialog pickerTimes = new CustomTimePickerDialog(this);
@@ -147,17 +142,17 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         }
     }
 
-    void init(){
+    void init() {
         rootView = findViewById(R.id.activity_add_event);
-        tvPickDate = (TextView)findViewById(R.id.tv_pick_date);
+        tvPickDate = findViewById(R.id.tv_pick_date);
         tvPickDate.setOnClickListener(this);
-        tvPickTimeStart = (TextView)findViewById(R.id.tv_pick_time_start);
+        tvPickTimeStart = findViewById(R.id.tv_pick_time_start);
         tvPickTimeStart.setOnClickListener(this);
-        tvPickTimeEnd = (TextView)findViewById(R.id.tv_pick_time_end);
+        tvPickTimeEnd = findViewById(R.id.tv_pick_time_end);
         tvPickTimeEnd.setOnClickListener(this);
-        tvSelectPattern = (TextView)findViewById(R.id.tv_select_pattern);
+        tvSelectPattern = findViewById(R.id.tv_select_pattern);
         tvSelectPattern.setOnClickListener(this);
-        edtEvent = (EditText)findViewById(R.id.edt_event);
+        edtEvent = findViewById(R.id.edt_event);
         tvPickDate.setText(TimeUtils.getNowDate());
         tvPickTimeStart.setText(TimeUtils.getNowTime());
         tvPickTimeEnd.setText(TimeUtils.getNowTime());
@@ -187,8 +182,13 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         startActivity(intent);
     }
 
+    /**
+     * 把pattern转为数字便于储存
+     *
+     * @param str 用户选择的pattern
+     * @return pattern 转化为int便于储存
+     */
     public int pattern(String str){
-        // 把pattern转化为数字
         int pattern;
         switch (str){
             case ("半小时前"):

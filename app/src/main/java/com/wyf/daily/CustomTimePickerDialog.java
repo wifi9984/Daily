@@ -20,28 +20,28 @@ public class CustomTimePickerDialog implements View.OnClickListener,TimePicker.O
     private Dialog dialog;
     private TimePicker picker_time;
 
-    public CustomTimePickerDialog(Context context){
+    public CustomTimePickerDialog(Context context) {
         view = LayoutInflater.from(context).inflate(R.layout.picker_time,null);
         dialog = new Dialog(context,R.style.Theme_AppCompat_Light_Dialog_Alert_Self);
-        picker_time = (TimePicker)view.findViewById(R.id.picker_time);
+        picker_time = view.findViewById(R.id.picker_time);
         view.findViewById(R.id.btn_confirm_tp).setOnClickListener(this);
     }
 
-    public void setTime(int hour,int min,OnTimeSetListener listener){
+    public void setTime(int hour,int min,OnTimeSetListener listener) {
         picker_time.setHour(hour);
         picker_time.setMinute(min);
         picker_time.setOnTimeChangedListener(this);
         mTimeSetListener = listener;
     }
 
-    public void show(){
+    public void show() {
         dialog.getWindow().setContentView(view);
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }
 
-    public void dismiss(){
-        if(dialog != null && dialog.isShowing()){
+    public void dismiss() {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
     }
@@ -49,7 +49,7 @@ public class CustomTimePickerDialog implements View.OnClickListener,TimePicker.O
     @Override
     public void onClick(View v) {
         dismiss();
-        if(mTimeSetListener != null){
+        if (mTimeSetListener != null) {
             picker_time.clearFocus();
             mTimeSetListener.onTimeSet(picker_time.getHour(),picker_time.getMinute());
         }
@@ -63,7 +63,7 @@ public class CustomTimePickerDialog implements View.OnClickListener,TimePicker.O
     }
 
     private OnTimeSetListener mTimeSetListener;
-    public interface OnTimeSetListener{
+    public interface OnTimeSetListener {
         void onTimeSet(int hour,int min);
     }
 }
