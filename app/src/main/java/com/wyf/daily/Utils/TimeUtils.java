@@ -1,4 +1,4 @@
-package com.wyf.daily;
+package com.wyf.daily.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

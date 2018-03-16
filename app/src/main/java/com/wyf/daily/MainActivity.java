@@ -1,5 +1,6 @@
 package com.wyf.daily;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -11,6 +12,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVOSCloud;
 
@@ -18,16 +21,15 @@ import com.avos.avoscloud.AVOSCloud;
  * Main Activity
  *
  * @author wifi9984
- * @date 2017/8/31
+ * @date 2018/3/16
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
 
     private EventsFragment eventsFragment;
     private DebugFragment debugFragment;
     private SettingsFragment settingsFragment;
-    private SignUpFragment signUpFragment;
     // record showing fragment
 
     private android.app.Fragment isFragment;
@@ -37,17 +39,21 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         AVOSCloud.initialize(this, "JwKhE7dXF0KNRlam6zUn1KMR-9Nh9j0Va", "3v4GrE3nHuGmRcytTRefRY97");
         AVOSCloud.setDebugLogEnabled(true);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
         initToolbar();
         initFragment(savedInstanceState);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        initNav();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     /**
      *  初始化Toolbar
      */
-    public void initToolbar() {
+    void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("所有事项");
         setSupportActionBar(toolbar);
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity
      *
      * @param savedInstanceState
      */
-    public void initFragment(Bundle savedInstanceState) {
+    void initFragment(Bundle savedInstanceState) {
         if(savedInstanceState == null){
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -76,12 +82,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
+     * 初始化侧滑页面
+     */
+    void initNav() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View navHeader = navigationView.getHeaderView(0);
+        ImageView loginEntrance = navHeader.findViewById(R.id.nav_user_avatar);
+        loginEntrance.setOnClickListener(this);
+    }
+
+    /**
      * Fragment的切换
      *
-     * @param from
-     * @param to
+     * @param from 当前的Fragment
+     * @param to 指定的Fragment
      */
-    public void switchContent(Fragment from,Fragment to) {
+    void switchContent(Fragment from,Fragment to) {
         if(isFragment != to) {
             isFragment = to;
             FragmentManager fm = getFragmentManager();
@@ -109,7 +126,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         getSupportActionBar().setTitle(item.getTitle());
         int id = item.getItemId();
-
         if (id == R.id.nav_all) {
             if(eventsFragment == null){
                 eventsFragment = new EventsFragment();
@@ -121,10 +137,7 @@ public class MainActivity extends AppCompatActivity
             }
             switchContent(isFragment,debugFragment);
         } else if (id == R.id.nav_notes) {
-            if(signUpFragment == null){
-                signUpFragment = new SignUpFragment();
-            }
-            switchContent(isFragment, signUpFragment);
+
         } else if (id == R.id.nav_settings) {
             if(settingsFragment == null){
                 settingsFragment = new SettingsFragment();
@@ -141,7 +154,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case (R.id.nav_user_avatar):
+                // 用户头像/注册登录入口的点击事件
+                Intent intent = new Intent();
+                intent.setClass(this, LoginActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

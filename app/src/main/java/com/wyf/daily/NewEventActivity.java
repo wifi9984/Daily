@@ -20,6 +20,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.wyf.daily.Animation.CustomChangeBounds;
+import com.wyf.daily.Utils.TimeUtils;
+import com.wyf.daily.Widgets.CustomDatePickerDialog;
+import com.wyf.daily.Widgets.CustomTimePickerDialog;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,7 +59,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.BOTTOM;
         win.setAttributes(lp);
-        setContentView(R.layout.activity_new_event);
+        setContentView(R.layout.new_event_activity);
         init();
     }
 
@@ -190,7 +196,7 @@ public class NewEventActivity extends Activity implements View.OnClickListener,
      */
     public int pattern(String str){
         int pattern;
-        switch (str){
+        switch (str) {
             case ("半小时前"):
                 pattern = 2;
                 break;

@@ -40,7 +40,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = mInflater.inflate(R.layout.single_event_list,parent,false);
+        View v = mInflater.inflate(R.layout.events_recycle_item,parent,false);
         ItemHolder holder = new ItemHolder(v);
         v.setOnClickListener(this);
         v.setOnLongClickListener(this);

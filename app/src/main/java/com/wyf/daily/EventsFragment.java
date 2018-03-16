@@ -41,7 +41,7 @@ public class EventsFragment extends android.app.Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         mHelper = EventsDBHelper.getInstance(mContext,1);
-        mView = inflater.inflate(R.layout.fragment_events,container,false);
+        mView = inflater.inflate(R.layout.events_fragment,container,false);
         init();
         return mView;
     }

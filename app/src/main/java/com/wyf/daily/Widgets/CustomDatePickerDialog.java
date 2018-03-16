@@ -1,4 +1,4 @@
-package com.wyf.daily;
+package com.wyf.daily.Widgets;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 
-import java.util.Date;
+import com.wyf.daily.R;
 
 /**
  * 自定义的DatePickerDialog
@@ -22,7 +22,7 @@ public class CustomDatePickerDialog implements View.OnClickListener,DatePicker.O
     private DatePicker picker_date;
 
     public CustomDatePickerDialog(Context context) {
-        view = LayoutInflater.from(context).inflate(R.layout.picker_date,null);
+        view = LayoutInflater.from(context).inflate(R.layout.picker_date_dialog,null);
         dialog = new Dialog(context,R.style.Theme_AppCompat_Light_Dialog_Alert_Self);
         picker_date = view.findViewById(R.id.picker_date);
         view.findViewById(R.id.btn_confirm_dp).setOnClickListener(this);

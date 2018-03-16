@@ -33,7 +33,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
-        mView = inflater.inflate(R.layout.fragment_debug,container,false);
+        mView = inflater.inflate(R.layout.debug_fragment,container,false);
         init();
         return mView;
     }

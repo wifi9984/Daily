@@ -14,15 +14,15 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/nav_user_avatar"
         android:layout_width="60dp"
-        android:layout_height="76dp"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_height="60dp"
         app:srcCompat="@drawable/profile_picture"
         android:scaleType="centerInside"
         android:contentDescription="@string/user_name"/>
 
     <TextView
+        android:id="@+id/nav_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="9dp"
@@ -32,10 +32,10 @@
         android:textColor="#ffffff" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nav_user_signature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/simple_intro"
+        android:text="@string/user_email"
         android:textSize="12sp"
         android:textColor="#eeffffff" />
 
