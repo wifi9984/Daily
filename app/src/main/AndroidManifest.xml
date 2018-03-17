@@ -38,8 +38,7 @@
 
         <activity
             android:name=".LoginActivity"
-            android:label="@string/login_title"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar.Login" />
 
         <!-- 实时通信模块、推送（均需要加入以下声明） START -->
         <!-- 实时通信模块、推送都要使用 PushService -->

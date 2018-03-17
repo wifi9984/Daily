@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
      *  初始化Toolbar
      */
     void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setTitle("所有事项");
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent();
                 intent.setClass(this, LoginActivity.class);
                 startActivity(intent);
+                onStop();
                 break;
             default:
                 break;

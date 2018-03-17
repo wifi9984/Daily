@@ -1,52 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/login_img_avator"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_centerHorizontal="true"
-        android:background="@color/avoscloud_blue"
-        android:layout_marginTop="70dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <AutoCompleteTextView
-        android:id="@+id/login_edt_username"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:text="用户名/手机号/邮箱"
-        android:hint="用户名"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp" />
+        <android.support.design.widget.AppBarLayout
+            tools:context="com.wyf.daily.LoginActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-    <EditText
-        android:id="@+id/login_edt_password"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:inputType="textPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="260dp"/>
+            <android.support.v7.widget.Toolbar
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                android:id="@+id/login_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="3dp"
+                android:fitsSystemWindows="true">
 
-    <Button
-        android:id="@+id/login_btn_signin"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="330dp"
-        android:text="@string/signin"
-        android:textSize="16sp" />
+            </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:id="@+id/login_btn_signup"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="390dp"
-        android:text="@string/signup"
-        android:textSize="16sp"/>
+        </android.support.design.widget.AppBarLayout>
 
-</RelativeLayout>
+        <FrameLayout
+            android:id="@+id/frame_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

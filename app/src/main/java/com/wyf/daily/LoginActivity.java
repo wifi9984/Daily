@@ -1,107 +1,78 @@
 package com.wyf.daily;
 
-import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 
 /**
- * 功能：简单的用户注册
+ * 功能：用户登录与注册
  *
  * @author wifi9984
  * @date 2018/3/16
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity {
     private Context mContext;
-    private EditText usernameInput;
-    private EditText passwordInput;
-    private Button signIn;
-    private Button signUp;
+    private SignInFragment signInFragment;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         init();
+        initToolBar();
+        initFragment(savedInstanceState);
     }
 
     void init() {
         mContext = this;
-        usernameInput = findViewById(R.id.login_edt_username);
-        passwordInput = findViewById(R.id.login_edt_password);
-        signIn = findViewById(R.id.login_btn_signin);
-        signUp = findViewById(R.id.login_btn_signup);
-        signIn.setOnClickListener(this);
-        signUp.setOnClickListener(this);
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.login_btn_signin :
-                signInUser(usernameInput.getText().toString(), passwordInput.getText().toString());
-                break;
-            case R.id.login_btn_signup :
-                signUpUser(usernameInput.getText().toString(), passwordInput.getText().toString());
-                break;
-            default: break;
+    void initToolBar() {
+        Toolbar toolbar = findViewById(R.id.login_toolbar);
+        toolbar.setTitle(R.string.login_title);
+        setSupportActionBar(toolbar);
+    }
+
+    void initFragment(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            if (signInFragment == null) {
+                signInFragment = new SignInFragment();
+            }
+            ft.replace(R.id.frame_login, signInFragment).commit();
         }
     }
 
-    void signInUser (String username, String password) {
-        AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
-            @Override
-            public void done(AVUser avUser, AVException e) {
-                if (e == null){
-                    Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(mContext, "登录失败", Toast.LENGTH_SHORT).show();
-                    // 若返回类型为账户不存在，提示注册
-                }
-            }
-        });
-    }
-
-    void signUpUser(String username, String password) {
-        AVUser user = new AVUser();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(AVException e) {
-                if (e == null) {
-                    Toast.makeText(mContext, "注册成功", Toast.LENGTH_SHORT).show();
-                    signInUser(usernameInput.getText().toString(), passwordInput.getText().toString());
-                } else {
-                    Toast.makeText(mContext, "注册失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+//    void signUpUser(String username, String password) {
+//        AVUser user = new AVUser();
+//        user.setUsername(username);
+//        user.setPassword(password);
+//        user.signUpInBackground(new SignUpCallback() {
+//            @Override
+//            public void done(AVException e) {
+//                if (e == null) {
+//                    Toast.makeText(mContext, "注册成功", Toast.LENGTH_SHORT).show();
+//                    signInUser(usernameInput.getText().toString(), passwordInput.getText().toString());
+//                } else {
+//                    Toast.makeText(mContext, "注册失败", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
 }
