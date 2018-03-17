@@ -18,6 +18,8 @@
 
     <string name="login_inform_words">用户名/手机号/邮箱</string>
     <string name="username">用户名</string>
+    <string name="phonenumber">手机号</string>
+    <string name="email">邮箱</string>
     <string name="password">密码</string>
     <string name="confirm">添加</string>
     <string name="cancel">取消</string>

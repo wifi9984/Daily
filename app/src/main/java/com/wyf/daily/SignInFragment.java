@@ -1,8 +1,9 @@
 package com.wyf.daily;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,7 +19,10 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 
 /**
- * Created by 11512 on 2018/3/17.
+ * 正常登录页面
+ *
+ * @author wifi9984
+ * @date 2018/3/17
  */
 
 public class SignInFragment extends android.app.Fragment implements View.OnClickListener {
@@ -29,6 +33,8 @@ public class SignInFragment extends android.app.Fragment implements View.OnClick
     private AutoCompleteTextView passwordInput;
     private Button signIn;
     private Button signUp;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Nullable
     @Override
@@ -45,13 +51,15 @@ public class SignInFragment extends android.app.Fragment implements View.OnClick
     }
 
     void init() {
-        logoImage = mView.findViewById(R.id.login_img_avator);
-        usernameInput = mView.findViewById(R.id.login_atv_username);
-        passwordInput = mView.findViewById(R.id.login_atv_password);
-        signIn = mView.findViewById(R.id.login_btn_signin);
+        logoImage = mView.findViewById(R.id.signin_img_avator);
+        usernameInput = mView.findViewById(R.id.signin_atv_username);
+        passwordInput = mView.findViewById(R.id.signin_atv_password);
+        signIn = mView.findViewById(R.id.signin_btn_signin);
         signIn.setOnClickListener(this);
-        signUp = mView.findViewById(R.id.login_btn_signup);
+        signUp = mView.findViewById(R.id.signin_btn_signup);
         signUp.setOnClickListener(this);
+        // getFragmentManager用于Fragment跳转
+        fragmentManager = getFragmentManager();
     }
 
     /**
@@ -62,10 +70,21 @@ public class SignInFragment extends android.app.Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.login_btn_signin:
+            case R.id.signin_btn_signin:
                 signInUser(usernameInput.getText().toString(), passwordInput.getText().toString());
                 break;
-            case R.id.login_btn_signup:
+            case R.id.signin_btn_signup:
+                fragmentTransaction = fragmentManager.beginTransaction();
+                String username = usernameInput.getText().toString();
+                String password = passwordInput.getText().toString();
+                SignUpFragment signUpFragment = new SignUpFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                bundle.putString("password", password);
+                signUpFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_login, signUpFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 break;
             default: break;
         }

@@ -19,7 +19,7 @@
         android:layout_marginTop="200dp">
 
         <AutoCompleteTextView
-            android:id="@+id/login_atv_username"
+            android:id="@+id/signin_atv_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -36,7 +36,7 @@
         android:layout_marginTop="260dp">
 
         <AutoCompleteTextView
-            android:id="@+id/login_atv_password"
+            android:id="@+id/signin_atv_password"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -47,7 +47,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/login_btn_signup"
+        android:id="@+id/signin_btn_signup"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"

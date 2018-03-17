@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/signup_img_avator"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/avoscloud_blue"
+        android:layout_marginTop="70dp"
+        android:contentDescription="@string/login_inform_words"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/signup_atv_username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/login_inform_words"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="260dp"
+        android:layout_centerHorizontal="true" >
+
+        <AutoCompleteTextView
+            android:id="@+id/signup_atv_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:textSize="16sp"/>
+    </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>

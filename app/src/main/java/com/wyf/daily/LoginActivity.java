@@ -1,5 +1,6 @@
 package com.wyf.daily;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -28,7 +29,6 @@ import com.avos.avoscloud.SignUpCallback;
 public class LoginActivity extends AppCompatActivity {
     private Context mContext;
     private SignInFragment signInFragment;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
