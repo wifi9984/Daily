@@ -27,7 +27,7 @@
             android:layout_marginTop="15dp">
 
             <Button
-                android:id="@+id/btn_debug_read"
+                android:id="@+id/debug_btn_read"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -35,7 +35,7 @@
                 android:textSize="17sp"/>
 
             <Button
-                android:id="@+id/btn_debug_clean"
+                android:id="@+id/debug_btn_clean"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -44,7 +44,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_debug_log"
+            android:id="@+id/debug_tv_log"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="15sp" />

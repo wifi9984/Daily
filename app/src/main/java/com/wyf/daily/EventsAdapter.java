@@ -91,11 +91,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ItemHolder
 
         public ItemHolder(View v) {
             super(v);
-            cardItem = v.findViewById(R.id.card_item);
-            itemLayout = v.findViewById(R.id.item_layout);
-            tvTime = v.findViewById(R.id.tv_home_read_start_time);
-            tvEvent = v.findViewById(R.id.tv_home_read_event);
-            tvInform = v.findViewById(R.id.tv_home_read_inform_time);
+            cardItem = v.findViewById(R.id.events_rl_item_card);
+            itemLayout = v.findViewById(R.id.events_rv_item_ll);
+            tvTime = v.findViewById(R.id.events_rv_item_tv_start_time);
+            tvEvent = v.findViewById(R.id.events_rv_item_tv_event);
+            tvInform = v.findViewById(R.id.events_rv_item_tv_inform_time);
         }
     }
 

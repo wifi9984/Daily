@@ -18,6 +18,9 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 正常登录页面
  *
@@ -26,13 +29,14 @@ import com.avos.avoscloud.LogInCallback;
  */
 
 public class SignInFragment extends android.app.Fragment implements View.OnClickListener {
+
+    @BindView(R2.id.signin_img_avator) ImageView logoImage;
+    @BindView(R2.id.signin_atv_username) AutoCompleteTextView usernameInput;
+    @BindView(R2.id.signin_atv_password) AutoCompleteTextView passwordInput;
+    @BindView(R2.id.signin_btn_signin) Button signIn;
+    @BindView(R2.id.signin_btn_signup) Button signUp;
     protected Context mContext;
     protected View mView;
-    private ImageView logoImage;
-    private AutoCompleteTextView usernameInput;
-    private AutoCompleteTextView passwordInput;
-    private Button signIn;
-    private Button signUp;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -41,6 +45,7 @@ public class SignInFragment extends android.app.Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.login_fragment_default, container, false);
+        ButterKnife.bind(this, mView);
         init();
         return mView;
     }
@@ -51,12 +56,7 @@ public class SignInFragment extends android.app.Fragment implements View.OnClick
     }
 
     void init() {
-        logoImage = mView.findViewById(R.id.signin_img_avator);
-        usernameInput = mView.findViewById(R.id.signin_atv_username);
-        passwordInput = mView.findViewById(R.id.signin_atv_password);
-        signIn = mView.findViewById(R.id.signin_btn_signin);
         signIn.setOnClickListener(this);
-        signUp = mView.findViewById(R.id.signin_btn_signup);
         signUp.setOnClickListener(this);
         // getFragmentManager用于Fragment跳转
         fragmentManager = getFragmentManager();

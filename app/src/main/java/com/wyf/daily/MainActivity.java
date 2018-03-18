@@ -14,8 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVOSCloud;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Main Activity
@@ -27,11 +31,11 @@ import com.avos.avoscloud.AVOSCloud;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
 
+    @BindView(R2.id.main_toolbar) Toolbar toolbar;
+    @BindView(R2.id.main_nav_view) NavigationView navigationView;
     private EventsFragment eventsFragment;
     private DebugFragment debugFragment;
     private SettingsFragment settingsFragment;
-    // record showing fragment
-
     private android.app.Fragment isFragment;
 
     @Override
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         AVOSCloud.initialize(this, "JwKhE7dXF0KNRlam6zUn1KMR-9Nh9j0Va", "3v4GrE3nHuGmRcytTRefRY97");
         AVOSCloud.setDebugLogEnabled(true);
         setContentView(R.layout.main_activity);
+        ButterKnife.bind(this);
         initToolbar();
         initFragment(savedInstanceState);
         initNav();
@@ -54,7 +59,6 @@ public class MainActivity extends AppCompatActivity
      *  初始化Toolbar
      */
     void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         toolbar.setTitle("所有事项");
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -85,10 +89,9 @@ public class MainActivity extends AppCompatActivity
      * 初始化侧滑页面
      */
     void initNav() {
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View navHeader = navigationView.getHeaderView(0);
-        ImageView loginEntrance = navHeader.findViewById(R.id.nav_user_avatar);
+        ImageView loginEntrance = navHeader.findViewById(R.id.main_nav_user_avatar);
         loginEntrance.setOnClickListener(this);
     }
 
@@ -156,12 +159,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case (R.id.nav_user_avatar):
+            case (R.id.main_nav_user_avatar):
                 // 用户头像/注册登录入口的点击事件
                 Intent intent = new Intent();
                 intent.setClass(this, LoginActivity.class);
                 startActivity(intent);
-                onStop();
                 break;
             default:
                 break;

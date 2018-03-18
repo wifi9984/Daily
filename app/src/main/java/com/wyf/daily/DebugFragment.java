@@ -14,6 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * DebugFragment用来做APP各种后台的调试
  *
@@ -23,17 +26,18 @@ import java.util.Locale;
 
 public class DebugFragment extends android.app.Fragment implements View.OnClickListener {
 
+    @BindView(R2.id.debug_btn_read) Button btnRead;
+    @BindView(R2.id.debug_btn_clean) Button btnClean;
+    @BindView(R2.id.debug_tv_log) TextView tvLog;
     protected View mView;
     protected Context mContext;
-    private Button btnRead;
-    private Button btnClean;
     private EventsDBHelper mHelper;
-    private TextView tvLog;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.debug_fragment,container,false);
+        ButterKnife.bind(this,mView);
         init();
         return mView;
     }
@@ -46,16 +50,13 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
     }
 
     void init(){
-        btnRead = mView.findViewById(R.id.btn_debug_read);
-        btnClean = mView.findViewById(R.id.btn_debug_clean);
         btnRead.setOnClickListener(this);
         btnClean.setOnClickListener(this);
-        tvLog = mView.findViewById(R.id.tv_debug_log);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_debug_read) {
+        if (v.getId() == R.id.debug_btn_read) {
             // 读取数据库数据，代码我也是抄来的，改好了2333
             if (mHelper == null) {
                 tvLog.setText("查找失败");
@@ -73,7 +74,7 @@ public class DebugFragment extends android.app.Fragment implements View.OnClickL
                 desc = String.format(Locale.getDefault(),"%s\n　提醒方式：%d", desc, event.getPattern());
             }
             tvLog.setText(desc);
-        } else if (v.getId() == R.id.btn_debug_clean) {
+        } else if (v.getId() == R.id.debug_btn_clean) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
             builder.setTitle("令人窒息的操作！");
             builder.setMessage("您确定要删除数据库全部内容吗？");

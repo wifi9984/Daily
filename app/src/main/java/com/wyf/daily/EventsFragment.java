@@ -18,22 +18,25 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  *  EventsFragment来呈现“所有事项”界面
  *
  *  @author wifi9984
- *  @date 2017/12/22
+ *  @date 2018/3/18
  */
 
 public class EventsFragment extends android.app.Fragment
         implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener {
 
-    private FloatingActionButton fab_add;
-    private SwipeRefreshLayout srl_main;
+    @BindView(R.id.events_fab_add) FloatingActionButton fabAddItem;
+    @BindView(R2.id.events_srl) SwipeRefreshLayout mSwipeRefresh;
+    @BindView(R2.id.events_rv) RecyclerView mRecyclerView;
     private EventsDBHelper mHelper;
     protected View mView;
     protected Context mContext;
-    private RecyclerView mRecyclerView;
     private EventsAdapter mAdapter;
 
     @Nullable
@@ -42,6 +45,7 @@ public class EventsFragment extends android.app.Fragment
         mContext = getActivity();
         mHelper = EventsDBHelper.getInstance(mContext,1);
         mView = inflater.inflate(R.layout.events_fragment,container,false);
+        ButterKnife.bind(this, mView);
         init();
         return mView;
     }
@@ -63,13 +67,10 @@ public class EventsFragment extends android.app.Fragment
     }
 
     void init() {
-        fab_add = mView.findViewById(R.id.fab_add_event);
-        srl_main = mView.findViewById(R.id.srl_main);
-        fab_add.setOnClickListener(this);
-        srl_main.setOnRefreshListener(this);
-        srl_main.setColorSchemeResources(R.color.indigo400,R.color.colorPrimaryDark);
+        fabAddItem.setOnClickListener(this);
+        mSwipeRefresh.setOnRefreshListener(this);
+        mSwipeRefresh.setColorSchemeResources(R.color.indigo400,R.color.colorPrimaryDark);
         // RecyclerView初始化
-        mRecyclerView = mView.findViewById(R.id.rv_events);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false){
             // 重写LinearLayoutManager，修复RecyclerView嵌套在ScrollView中导致的滚动冲突，解决卡顿
             @Override
@@ -78,8 +79,8 @@ public class EventsFragment extends android.app.Fragment
             }
         };
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        ArrayList<Event> AllEvents = mHelper.allEvents(mHelper.getReadableDatabase());
-        mAdapter = new EventsAdapter(this.getActivity(),AllEvents);
+        ArrayList<Event> allEvents = mHelper.allEvents(mHelper.getReadableDatabase());
+        mAdapter = new EventsAdapter(this.getActivity(),allEvents);
         mAdapter.setOnItemClickListener(new EventsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -97,10 +98,10 @@ public class EventsFragment extends android.app.Fragment
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.fab_add_event){
+        if(v.getId() == R.id.events_fab_add){
             Intent intent = new Intent(getActivity(),NewEventActivity.class);
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation
-                    (this.getActivity(), fab_add, "transition_morph_view_add");
+                    (this.getActivity(), fabAddItem, "transition_morph_view_add");
             startActivity(intent, options.toBundle());
             onStop();
         }
@@ -115,7 +116,7 @@ public class EventsFragment extends android.app.Fragment
     private Runnable mRefresh = new Runnable() {
         @Override
         public void run() {
-            srl_main.setRefreshing(false);
+            mSwipeRefresh.setRefreshing(false);
         }
     };
 }

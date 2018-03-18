@@ -9,6 +9,9 @@ import android.widget.DatePicker;
 
 import com.wyf.daily.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 自定义的DatePickerDialog
  *
@@ -17,19 +20,21 @@ import com.wyf.daily.R;
  */
 
 public class CustomDatePickerDialog implements View.OnClickListener,DatePicker.OnDateChangedListener {
+
     private Dialog dialog;
     private View view;
-    private DatePicker picker_date;
+    private DatePicker datePicker;
 
     public CustomDatePickerDialog(Context context) {
-        view = LayoutInflater.from(context).inflate(R.layout.picker_date_dialog,null);
+        view = LayoutInflater.from(context).inflate(R.layout.custom_date_picker_dialog,null);
+        ButterKnife.bind(view);
         dialog = new Dialog(context,R.style.Theme_AppCompat_Light_Dialog_Alert_Self);
-        picker_date = view.findViewById(R.id.picker_date);
-        view.findViewById(R.id.btn_confirm_dp).setOnClickListener(this);
+        datePicker = view.findViewById(R.id.custom_date_picker_dp);
+        view.findViewById(R.id.custom_date_picker_btn_confirm).setOnClickListener(this);
     }
 
     public void setDate(int year, int month, int day,OnDateSetListener listener) {
-        picker_date.init(year,month,day,this);
+        datePicker.init(year,month,day,this);
         mDateSetListener = listener;
     }
 
@@ -49,14 +54,14 @@ public class CustomDatePickerDialog implements View.OnClickListener,DatePicker.O
     public void onClick(View v) {
         dismiss();
         if(mDateSetListener != null){
-            picker_date.clearFocus();
-            mDateSetListener.onDateSet(picker_date.getYear(), picker_date.getMonth(), picker_date.getDayOfMonth());
+            datePicker.clearFocus();
+            mDateSetListener.onDateSet(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
         }
     }
 
     @Override
     public void onDateChanged(DatePicker view,int year,int monthOfYear,int dayOfMonth) {
-        picker_date.init(year,monthOfYear,dayOfMonth,this);
+        datePicker.init(year,monthOfYear,dayOfMonth,this);
     }
 
     private OnDateSetListener mDateSetListener;

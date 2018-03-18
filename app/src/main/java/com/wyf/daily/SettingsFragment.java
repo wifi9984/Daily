@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+
 /**
  * 功能：设置
  *
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
  */
 
 public class SettingsFragment extends Fragment {
+
     protected View mView;
     protected Context mContext;
 
@@ -24,6 +27,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         mView = inflater.inflate(R.layout.settings_fragment,container,false);
+        ButterKnife.bind(this, mView);
         return mView;
     }
 

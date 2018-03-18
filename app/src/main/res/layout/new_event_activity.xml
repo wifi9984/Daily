@@ -2,7 +2,7 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_add_event"
+    android:id="@+id/new_event_rl"
     android:layout_width="match_parent"
     android:layout_height="400dp"
     android:layout_gravity="bottom"
@@ -28,7 +28,7 @@
         android:id="@+id/ll_add">
 
         <EditText
-            android:id="@+id/edt_event"
+            android:id="@+id/new_event_edt_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
@@ -58,7 +58,7 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/tv_pick_date"
+                android:id="@+id/new_event_tv_pick_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -87,7 +87,7 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/tv_pick_time_start"
+                android:id="@+id/new_event_tv_pick_time_start"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -116,7 +116,7 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/tv_pick_time_end"
+                android:id="@+id/new_event_tv_pick_time_end"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -145,7 +145,7 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/tv_select_pattern"
+                android:id="@+id/new_event_tv_select_pattern"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
@@ -158,7 +158,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_confirm_add"
+        android:id="@+id/new_event_btn_confirm_add"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginEnd="19dp"
@@ -171,14 +171,14 @@
         android:layout_marginBottom="5dp"/>
 
     <Button
-        android:id="@+id/btn_cancel_add"
+        android:id="@+id/new_event_btn_cancel_add"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:background="@null"
         android:text="@string/cancel"
         android:textColor="@color/grey500"
         android:textSize="17sp"
-        android:layout_toStartOf="@id/btn_confirm_add"
+        android:layout_toStartOf="@id/new_event_btn_confirm_add"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"/>
 

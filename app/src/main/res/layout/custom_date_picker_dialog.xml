@@ -14,7 +14,7 @@
         android:background="#fff">
 
         <DatePicker
-            android:id="@+id/picker_date"
+            android:id="@+id/custom_date_picker_dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:calendarViewShown="false"
@@ -27,7 +27,7 @@
             android:background="@color/colorAccent"/>
 
         <Button
-            android:id="@+id/btn_confirm_dp"
+            android:id="@+id/custom_date_picker_btn_confirm"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@null"

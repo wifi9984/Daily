@@ -9,7 +9,7 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/srl_main"
+        android:id="@+id/events_srl"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context="com.wyf.daily.MainActivity"
@@ -21,7 +21,7 @@
             android:scrollbars="vertical">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_events"
+                    android:id="@+id/events_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -32,7 +32,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add_event"
+        android:id="@+id/events_fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:transitionName="transition_morph_view_fab"

@@ -23,10 +23,10 @@ public class CustomTimePickerDialog implements View.OnClickListener,TimePicker.O
     private TimePicker picker_time;
 
     public CustomTimePickerDialog(Context context) {
-        view = LayoutInflater.from(context).inflate(R.layout.picker_time_dialog,null);
+        view = LayoutInflater.from(context).inflate(R.layout.custom_time_picker_dialog,null);
         dialog = new Dialog(context,R.style.Theme_AppCompat_Light_Dialog_Alert_Self);
-        picker_time = view.findViewById(R.id.picker_time);
-        view.findViewById(R.id.btn_confirm_tp).setOnClickListener(this);
+        picker_time = view.findViewById(R.id.custom_time_picker_tp);
+        view.findViewById(R.id.custom_time_picker_btn_confirm).setOnClickListener(this);
     }
 
     public void setTime(int hour,int min,OnTimeSetListener listener) {

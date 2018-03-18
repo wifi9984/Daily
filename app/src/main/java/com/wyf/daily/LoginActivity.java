@@ -19,6 +19,9 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * 功能：用户登录与注册
  *
@@ -27,12 +30,16 @@ import com.avos.avoscloud.SignUpCallback;
  */
 
 public class LoginActivity extends AppCompatActivity {
+
+    @BindView(R2.id.login_toolbar) Toolbar toolbar;
     private Context mContext;
     private SignInFragment signInFragment;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        ButterKnife.bind(this);
         init();
         initToolBar();
         initFragment(savedInstanceState);
@@ -43,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void initToolBar() {
-        Toolbar toolbar = findViewById(R.id.login_toolbar);
         toolbar.setTitle(R.string.login_title);
         setSupportActionBar(toolbar);
     }
@@ -59,20 +65,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-//    void signUpUser(String username, String password) {
-//        AVUser user = new AVUser();
-//        user.setUsername(username);
-//        user.setPassword(password);
-//        user.signUpInBackground(new SignUpCallback() {
-//            @Override
-//            public void done(AVException e) {
-//                if (e == null) {
-//                    Toast.makeText(mContext, "注册成功", Toast.LENGTH_SHORT).show();
-//                    signInUser(usernameInput.getText().toString(), passwordInput.getText().toString());
-//                } else {
-//                    Toast.makeText(mContext, "注册失败", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
 }
